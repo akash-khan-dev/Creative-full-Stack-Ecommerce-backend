@@ -1,8 +1,8 @@
 const express = require("express");
+require("dotenv").config();
 const app = express();
+const router = require("./router/index");
 
-app.get("/", function (req, res) {
-  res.send("Hello World akash");
-});
+app.use("/", router);
 
 app.listen(3000);
