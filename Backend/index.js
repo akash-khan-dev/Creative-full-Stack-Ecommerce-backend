@@ -3,7 +3,6 @@ const app = express();
 require("dotenv").config();
 const mongoConfig = require("./DdConfig/mongoConfig");
 const router = require("./router/index");
-// orebiecommerce
 app.use(express.json());
 
 app.use("/", router);
