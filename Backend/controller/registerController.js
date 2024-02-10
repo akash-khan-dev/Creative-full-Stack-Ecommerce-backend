@@ -1,4 +1,5 @@
 const registerController = (req, res, next) => {
-  res.send("Hello World");
+  const { name, email, password } = req.body;
+  return res.send({ name: name, email: email, password: password });
 };
 module.exports = registerController;
