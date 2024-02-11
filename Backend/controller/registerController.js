@@ -1,4 +1,6 @@
 const User = require("../model/userModel");
+const sendOtp = require("../helpers/sendOtp");
+
 const bcrypt = require("bcrypt");
 const registerController = async (req, res, next) => {
   const { name, email, password, role } = req.body;
@@ -14,12 +16,12 @@ const registerController = async (req, res, next) => {
   // existing user checking
   const existingUser = await User.find({ email: email });
   if (existingUser.length > 0) {
-    return res.status(400).json({ error: "Email already existing" });
+    return res.status(400).json({ error: `${email} already existing` });
   }
 
   // password has and data store database
   bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(password, salt, function (err, hash) {
+    bcrypt.hash(password, salt, async function (err, hash) {
       const userData = new User({
         name: name,
         email: email,
@@ -27,9 +29,12 @@ const registerController = async (req, res, next) => {
         role: role,
       });
       userData.save();
+      // send email for OTP
+      sendOtp(email);
       return res.status(200).json({
-        name: name,
-        email: email,
+        name: userData.name,
+        email: userData.email,
+        role: userData.role,
       });
     });
   });
