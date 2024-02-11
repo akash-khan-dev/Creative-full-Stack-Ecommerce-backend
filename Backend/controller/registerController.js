@@ -1,4 +1,5 @@
 const User = require("../model/userModel");
+const bcrypt = require("bcrypt");
 const registerController = async (req, res, next) => {
   const { name, email, password, role } = req.body;
 
@@ -15,13 +16,22 @@ const registerController = async (req, res, next) => {
   if (existingUser.length > 0) {
     return res.status(400).json({ error: "Email already existing" });
   }
-  const userData = new User({
-    name: name,
-    email: email,
-    password: password,
-    role: role,
+
+  // password has and data store database
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(password, salt, function (err, hash) {
+      const userData = new User({
+        name: name,
+        email: email,
+        password: hash,
+        role: role,
+      });
+      userData.save();
+      return res.status(200).json({
+        name: name,
+        email: email,
+      });
+    });
   });
-  userData.save();
-  return res.send(userData);
 };
 module.exports = registerController;
