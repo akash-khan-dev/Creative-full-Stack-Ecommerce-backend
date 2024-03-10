@@ -1,5 +1,6 @@
 const User = require("../model/userModel");
 const sendOtp = require("../helpers/sendOtp");
+const { customOtpGen } = require("otp-gen-agent");
 
 const bcrypt = require("bcrypt");
 const registerController = async (req, res, next) => {
@@ -19,6 +20,10 @@ const registerController = async (req, res, next) => {
       return res.status(400).json({ error: `${email} already existing` });
     }
 
+    // Generate OTP
+
+    const OTP = await customOtpGen({ length: 5 });
+
     // password has and data store database
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
@@ -27,10 +32,11 @@ const registerController = async (req, res, next) => {
           email: email,
           password: hash,
           role: role,
+          otp: OTP,
         });
         userData.save();
         // send email for OTP
-        sendOtp(email);
+        sendOtp(email, OTP);
         return res.status(200).json({
           name: userData.name,
           email: userData.email,

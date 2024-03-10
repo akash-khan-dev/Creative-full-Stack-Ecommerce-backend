@@ -19,6 +19,11 @@ const userSchema = new Schema({
     enum: ["Admin", "Merchant", "User"],
     default: "User",
   },
+  emailVerified: {
+    type: Boolean,
+    default: false,
+  },
+  otp: String,
 });
 
 module.exports = model("User", userSchema);

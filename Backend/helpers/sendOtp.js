@@ -1,7 +1,6 @@
 const nodemailer = require("nodemailer");
-const { customOtpGen } = require("otp-gen-agent");
-const sendOtp = async (email) => {
-  const OTP = await customOtpGen({ length: 5 });
+
+const sendOtp = async (email, OTP) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     secure: true,
