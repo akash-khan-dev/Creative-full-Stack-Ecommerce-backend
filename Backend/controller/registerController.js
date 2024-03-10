@@ -38,9 +38,12 @@ const registerController = async (req, res, next) => {
         // send email for OTP
         sendOtp(email, OTP);
         return res.status(200).json({
-          name: userData.name,
-          email: userData.email,
-          role: userData.role,
+          status: "Registrations successfully Check Email",
+          data: {
+            name: userData.name,
+            email: userData.email,
+            role: userData.role,
+          },
         });
       });
     });
