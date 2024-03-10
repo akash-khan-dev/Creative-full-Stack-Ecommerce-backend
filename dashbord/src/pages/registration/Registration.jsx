@@ -29,7 +29,7 @@ const Registration = () => {
           transition: Bounce,
         });
         setTimeout(() => {
-          navigate("/otpVerification");
+          navigate(`/otpVerification/${values.email}`);
         }, 2000);
         setLoading(false);
       })

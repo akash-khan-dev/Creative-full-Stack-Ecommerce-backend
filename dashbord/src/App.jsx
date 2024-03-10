@@ -12,7 +12,7 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route path="/registration" element={<Registration />} />
-        <Route path="/otpVerification" element={<Otp />} />
+        <Route path="/otpVerification/:email" element={<Otp />} />
       </Route>
     )
   );
