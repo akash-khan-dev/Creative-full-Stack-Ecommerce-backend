@@ -1,18 +1,20 @@
 import { Button, Form, Input } from "antd";
-import { useState } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-const Otp = () => {
-  const [loading, setLoading] = useState(false);
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+
+const Login = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const [loading, setLoading] = useState(false);
+
   const onFinish = async (values) => {
-    const url = "http://localhost:8000/api/v1/user/otp";
+    setLoading(true);
+    const url = "http://localhost:8000/api/v1/user/register";
     const data = await axios
       .post(url, {
-        email: params.email,
-        otp: values.otp,
+        email: values.email,
+        password: values.password,
       })
       .then((data) => {
         toast.success(data.data.status, {
@@ -27,13 +29,23 @@ const Otp = () => {
           transition: Bounce,
         });
         setTimeout(() => {
-          navigate("/login");
+          navigate(`/otpVerification/${values.email}`);
         }, 2000);
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
-        console.log("OTP Not Match");
+        toast.error(err.response.data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
   };
   const onFinishFailed = (errorInfo) => {
@@ -62,16 +74,29 @@ const Otp = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Code"
-          name="otp"
+          label="Email"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your OTP!",
+              message: "Please input your Email!",
             },
           ]}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+          ]}
+        >
+          <Input.Password />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -93,4 +118,4 @@ const Otp = () => {
   );
 };
 
-export default Otp;
+export default Login;

@@ -1,8 +1,8 @@
 const User = require("../model/userModel");
 const sendOtp = require("../helpers/sendOtp");
 const { customOtpGen } = require("otp-gen-agent");
-
 const bcrypt = require("bcrypt");
+
 const registerController = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;

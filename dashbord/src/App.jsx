@@ -1,3 +1,4 @@
+import Login from "./pages/login/Login";
 import Otp from "./pages/otp/Otp";
 import Registration from "./pages/registration/Registration";
 import {
@@ -13,6 +14,7 @@ function App() {
       <Route>
         <Route path="/registration" element={<Registration />} />
         <Route path="/otpVerification/:email" element={<Otp />} />
+        <Route path="/login" element={<Login />} />
       </Route>
     )
   );
