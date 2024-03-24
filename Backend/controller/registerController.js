@@ -2,6 +2,7 @@ const User = require("../model/userModel");
 const sendOtp = require("../helpers/sendOtp");
 const { customOtpGen } = require("otp-gen-agent");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const registerController = async (req, res, next) => {
   try {
@@ -25,6 +26,7 @@ const registerController = async (req, res, next) => {
     const OTP = await customOtpGen({ length: 5 });
 
     // password has and data store database
+
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
         const userData = new User({
@@ -36,7 +38,9 @@ const registerController = async (req, res, next) => {
         });
         userData.save();
         // send email for OTP
-        sendOtp(email, OTP);
+        jwt.sign({ email: email }, "shhhhh", function (err, token) {
+          sendOtp(email, token);
+        });
         return res.status(200).json({
           status: "Registrations successfully Check Email",
           data: {

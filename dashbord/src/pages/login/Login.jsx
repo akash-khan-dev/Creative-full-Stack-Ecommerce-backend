@@ -10,14 +10,15 @@ const Login = () => {
 
   const onFinish = async (values) => {
     setLoading(true);
-    const url = "http://localhost:8000/api/v1/user/register";
+    const url = "http://localhost:8000/api/v1/user/login";
+    // eslint-disable-next-line no-unused-vars
     const data = await axios
       .post(url, {
         email: values.email,
         password: values.password,
       })
       .then((data) => {
-        toast.success(data.data.status, {
+        toast.success(data.data.message, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -29,13 +30,13 @@ const Login = () => {
           transition: Bounce,
         });
         setTimeout(() => {
-          navigate(`/otpVerification/${values.email}`);
+          navigate(`/`);
         }, 2000);
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err.response.data.error, {
+        toast.error(err.response.data.message, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,

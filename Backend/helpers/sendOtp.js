@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendOtp = async (email, OTP) => {
+const sendOtp = async (email, token) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     secure: true,
@@ -13,7 +13,7 @@ const sendOtp = async (email, OTP) => {
     from: "akash910971@gmail.com", // sender address
     to: email, // list of receivers
     subject: "This is your Verification", // Subject line
-    html: `<b>Your OTP is ${OTP}</b>`, // html body
+    html: `<a href="http://localhost:5173/emailVerification/${token}">Click Here</a>`, // html body
   });
 };
 module.exports = sendOtp;

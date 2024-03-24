@@ -5,17 +5,17 @@ const loginController = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email: email });
 
-  if (!user.emailVerified) {
-    return res.status(403).json({
-      status: "Not authorized",
-      message: "please give your otp",
-    });
-  }
-
   if (!user) {
     return res.status(400).json({
       status: "error",
       message: "Incorrect your email or password",
+    });
+  }
+
+  if (!user.emailVerified) {
+    return res.status(403).json({
+      status: "Not authorized",
+      message: "please verify your email",
     });
   }
 

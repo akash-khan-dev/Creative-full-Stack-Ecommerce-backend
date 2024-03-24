@@ -9,13 +9,14 @@ const Otp = () => {
   const params = useParams();
   const onFinish = async (values) => {
     const url = "http://localhost:8000/api/v1/user/otp";
+    // eslint-disable-next-line no-unused-vars
     const data = await axios
       .post(url, {
         email: params.email,
         otp: values.otp,
       })
       .then((data) => {
-        toast.success(data.data.status, {
+        toast.success(data.data.message, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -33,7 +34,17 @@ const Otp = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log("OTP Not Match");
+        toast.error(err.response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
   };
   const onFinishFailed = (errorInfo) => {

@@ -11,7 +11,7 @@ const otpController = async (req, res, next) => {
     );
     return res.status(200).json({
       status: "success",
-      message: "OTP Match",
+      message: "OTP successfully matched",
     });
   } else {
     return res.status(400).json({
