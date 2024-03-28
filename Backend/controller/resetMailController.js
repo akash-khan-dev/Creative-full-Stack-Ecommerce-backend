@@ -6,13 +6,13 @@ const resetMailController = async (req, res, next) => {
     const { email } = req.body;
     const user = await User.find({ email: email });
     if (user.length == 0) {
-    return  res.status(404).json({
+      return res.status(404).json({
         status: "error",
         message: "User not found",
       });
     }
     jwt.sign({ email: email }, "shhhhh", function (err, token) {
-      sendOtp(email, token);
+      sendOtp(email, "emailVerification", token, "This is your Verification");
     });
     return res.status(200).json({
       status: "success",

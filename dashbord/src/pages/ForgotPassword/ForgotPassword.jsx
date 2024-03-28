@@ -1,21 +1,17 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-
-const Login = () => {
-  const navigate = useNavigate();
+const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
     setLoading(true);
-    const url = "http://localhost:8000/api/v1/user/login";
+    const url = "http://localhost:8000/api/v1/user/forgotpass";
     // eslint-disable-next-line no-unused-vars
     const data = await axios
       .post(url, {
         email: values.email,
-        password: values.password,
       })
       .then((data) => {
         toast.success(data.data.message, {
@@ -29,12 +25,13 @@ const Login = () => {
           theme: "light",
           transition: Bounce,
         });
-        setTimeout(() => {
-          navigate(`/`);
-        }, 2000);
         setLoading(false);
+        //   setTimeout(() => {
+        //     navigate(`/`);
+        //   }, 2000);
       })
       .catch((err) => {
+        console.log(err.response.data.message);
         setLoading(false);
         toast.error(err.response.data.message, {
           position: "top-right",
@@ -88,18 +85,6 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
           wrapperCol={{
             offset: 8,
             span: 16,
@@ -113,14 +98,9 @@ const Login = () => {
           >
             Submit
           </Button>
-
-          <Link to={"/forgotpass"} style={{ marginLeft: "20px" }}>
-            Forgot Password
-          </Link>
         </Form.Item>
       </Form>
     </>
   );
 };
-
-export default Login;
+export default ForgotPassword;
