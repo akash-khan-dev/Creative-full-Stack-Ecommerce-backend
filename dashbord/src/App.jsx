@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/login/Login";
 import Otp from "./pages/otp/Otp";
 import Registration from "./pages/registration/Registration";
+import NewPassword from "./pages/NewPassword/NewPassword";
 import {
   Route,
   RouterProvider,
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/registration" index element={<Registration />} />
         <Route path="/forgotpass" index element={<ForgotPassword />} />
+        <Route path="/newpass/:token" index element={<NewPassword />} />
         <Route path="/otpVerification/:email" element={<Otp />} />
         <Route
           path="/emailVerification/:token"

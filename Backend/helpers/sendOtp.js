@@ -5,8 +5,8 @@ const sendOtp = async (email, path, token, subject) => {
     service: "gmail",
     secure: true,
     auth: {
-      user: "ak6220336@gmail.com",
-      pass: "klrr qyxq klga oein",
+      user: process.env.SEND_MEAIL,
+      pass: process.env.SEND_MEAIL_PASSWORD,
     },
   });
   const info = await transporter.sendMail({

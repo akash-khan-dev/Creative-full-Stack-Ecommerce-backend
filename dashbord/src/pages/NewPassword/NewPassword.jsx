@@ -1,19 +1,24 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-const ForgotPassword = () => {
+
+const NewPassword = () => {
   const [loading, setLoading] = useState(false);
+  const params = useParams();
 
   const onFinish = async (values) => {
     setLoading(true);
-    const url = "http://localhost:8000/api/v1/user/forgotpass";
+    const url = "http://localhost:8000/api/v1/user/newpass";
     // eslint-disable-next-line no-unused-vars
     const data = await axios
       .post(url, {
-        email: values.email,
+        token: params.token,
+        password: values.password,
       })
       .then((data) => {
+        console.log("Successfully");
         toast.success(data.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -67,16 +72,16 @@ const ForgotPassword = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Email"
-          name="email"
+          label="Password"
+          name="password"
           rules={[
             {
               required: true,
-              message: "Please input your Email!",
+              message: "Please input your password!",
             },
           ]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
 
         <Form.Item
@@ -98,4 +103,5 @@ const ForgotPassword = () => {
     </>
   );
 };
-export default ForgotPassword;
+
+export default NewPassword;
