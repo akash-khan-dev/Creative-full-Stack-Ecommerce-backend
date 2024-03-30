@@ -4,11 +4,17 @@ const jwt = require("jsonwebtoken");
 const resetMailController = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const user = await User.find({ email: email });
-    if (user.length == 0) {
+    const user = await User.findOne({ email: email });
+    if (!user) {
       return res.status(404).json({
         status: "error",
         message: "User not found",
+      });
+    }
+    if (user.emailVerified) {
+      return res.status(400).json({
+        status: "error",
+        message: "Email already verified",
       });
     }
     jwt.sign({ email: email }, "shhhhh", function (err, token) {
