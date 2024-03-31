@@ -1,4 +1,4 @@
-const sendOtp = require("../helpers/sendOtp");
+const sendEmail = require("../helpers/sendMail");
 const User = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 const resetMailController = async (req, res, next) => {
@@ -18,7 +18,7 @@ const resetMailController = async (req, res, next) => {
       });
     }
     jwt.sign({ email: email }, "shhhhh", function (err, token) {
-      sendOtp(email, "emailVerification", token, "This is your Verification");
+      sendEmail(email, "emailVerification", token, "This is your Verification");
     });
     return res.status(200).json({
       status: "success",

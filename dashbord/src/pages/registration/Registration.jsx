@@ -3,7 +3,7 @@ import { Button, Form, Input, Modal } from "antd";
 import axios from "axios";
 import { useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-
+import { Link } from "react-router-dom";
 const Registration = () => {
   const [loading, setLoading] = useState(false);
 
@@ -138,6 +138,11 @@ const Registration = () => {
           <Button onClick={showModal} style={{ marginLeft: "50px " }}>
             Resend Mail
           </Button>
+          <div>
+            <p>
+              Already have an account ? <Link to={"/login"}> Sing In</Link>
+            </p>
+          </div>
         </Form.Item>
       </Form>
       <ResendMailModal

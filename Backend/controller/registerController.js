@@ -1,5 +1,5 @@
 const User = require("../model/userModel");
-const sendOtp = require("../helpers/sendOtp");
+const sendEmail = require("../helpers/sendMail");
 const { customOtpGen } = require("otp-gen-agent");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -39,7 +39,7 @@ const registerController = async (req, res, next) => {
         userData.save();
         // send email for OTP
         jwt.sign({ email: email }, "shhhhh", function (err, token) {
-          sendOtp(email, token);
+          sendEmail(email, "emailVerification", token, "verified your email");
         });
         return res.status(200).json({
           status: "Registrations successfully Check Email",

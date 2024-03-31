@@ -117,6 +117,11 @@ const Login = () => {
           <Link to={"/forgotpass"} style={{ marginLeft: "20px" }}>
             Forgot Password
           </Link>
+          <div>
+            <p>
+              Create a new account ? <Link to={"/registration"}>Sing Up</Link>
+            </p>
+          </div>
         </Form.Item>
       </Form>
     </>

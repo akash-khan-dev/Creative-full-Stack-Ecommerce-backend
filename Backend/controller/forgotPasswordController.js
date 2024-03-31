@@ -1,4 +1,4 @@
-const sendOtp = require("../helpers/sendOtp");
+const sendEmail = require("../helpers/sendMail");
 const User = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 const forgotPasswordController = async (req, res, next) => {
@@ -8,7 +8,7 @@ const forgotPasswordController = async (req, res, next) => {
 
     if (existingUser.length > 0) {
       jwt.sign({ email: email }, "shhhhh", function (err, token) {
-        sendOtp(email, "newpass", token, "Forgot User Password");
+        sendEmail(email, "newpass", token, "Forgot User Password");
       });
       return res.status(200).json({
         status: "success",

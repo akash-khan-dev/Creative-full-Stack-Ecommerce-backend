@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendOtp = async (email, path, token, subject) => {
+const sendEmail = async (email, path, token, subject) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     secure: true,
@@ -16,4 +16,4 @@ const sendOtp = async (email, path, token, subject) => {
     html: `<a href="http://localhost:5173/${path}/${token}">Click Here</a>`, // html body
   });
 };
-module.exports = sendOtp;
+module.exports = sendEmail;

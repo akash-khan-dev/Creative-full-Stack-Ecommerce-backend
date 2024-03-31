@@ -20,7 +20,7 @@ function App() {
         <Route path="/registration" index element={<Registration />} />
         <Route path="/forgotpass" index element={<ForgotPassword />} />
         <Route path="/newpass/:token" index element={<NewPassword />} />
-        <Route path="/otpVerification/:email" element={<Otp />} />
+        <Route path="/otpVerification/:token" element={<Otp />} />
         <Route
           path="/emailVerification/:token"
           element={<EmailVerification />}
