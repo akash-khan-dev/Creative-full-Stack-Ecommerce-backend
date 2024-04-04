@@ -21,6 +21,7 @@ const Registration = () => {
   const onFinish = async (values) => {
     setLoading(true);
     const url = "http://localhost:8000/api/v1/user/register";
+    // eslint-disable-next-line no-unused-vars
     const data = await axios
       .post(url, {
         name: values.username,
@@ -161,6 +162,7 @@ const ResendMailModal = ({ isModalOpen, handleOk, handleCancel }) => {
   const onFinish = async (values) => {
     // setLoading(true);
     const url = "http://localhost:8000/api/v1/user/resetMail";
+    // eslint-disable-next-line no-unused-vars
     const data = await axios
       .post(url, { email: values.email })
       .then((data) => {
@@ -195,6 +197,7 @@ const ResendMailModal = ({ isModalOpen, handleOk, handleCancel }) => {
         });
       });
   };
+  // eslint-disable-next-line no-unused-vars
   const onFinishFailed = (errorInfo) => {
     // setLoading(false);
     // console.log("error:", errorInfo);
