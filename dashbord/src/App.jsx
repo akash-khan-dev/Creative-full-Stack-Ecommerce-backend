@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Dashboard from "./pages/Dashbord/Dashboard";
 import AddCategory from "./pages/AddCaterory/AddCategory";
+import AddSubCategory from "./pages/AddSubCategory/AddSubCategory";
 
 function App() {
   const routes = createBrowserRouter(
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="add-category" element={<AddCategory />} />
+          <Route path="add-sub-category" element={<AddSubCategory />} />
         </Route>
       </Route>
     )

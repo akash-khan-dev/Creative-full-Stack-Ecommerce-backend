@@ -35,7 +35,7 @@ const Dashboard = () => {
     getItem("Category", "sub3", <ProductFilled />, [
       getItem("Add Category", "/dashboard/add-category"),
       getItem("View Category", "6"),
-      getItem("Add Subcategory", "7"),
+      getItem("Add Subcategory", "/dashboard/add-sub-category"),
       getItem("View Subcategory", "8"),
     ]),
     {

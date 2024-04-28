@@ -12,6 +12,12 @@ const addSubCategoryController = async (req, res, next) => {
         .json({ status: "error", message: "Sub Category already exists" });
     }
 
+    if (!categoryId) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Please select category" });
+    }
+
     const subCategory = new subCategoryModel({
       name: name.toLowerCase(),
       categoryId: categoryId,
