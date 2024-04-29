@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashbord/Dashboard";
 import AddCategory from "./pages/AddCaterory/AddCategory";
 import AddSubCategory from "./pages/AddSubCategory/AddSubCategory";
 import ViewCategory from "./pages/ViewCategory/ViewCategory";
+import ViewSubCategory from "./pages/ViewSubCategory/ViewSubCategory";
 
 function App() {
   const routes = createBrowserRouter(
@@ -30,6 +31,7 @@ function App() {
           <Route path="add-category" element={<AddCategory />} />
           <Route path="add-sub-category" element={<AddSubCategory />} />
           <Route path="view-category" element={<ViewCategory />} />
+          <Route path="view-sub-category" element={<ViewSubCategory />} />
         </Route>
       </Route>
     )

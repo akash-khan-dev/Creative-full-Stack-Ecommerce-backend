@@ -36,7 +36,7 @@ const Dashboard = () => {
       getItem("Add Category", "/dashboard/add-category"),
       getItem("View Category", "/dashboard/view-category"),
       getItem("Add Subcategory", "/dashboard/add-sub-category"),
-      getItem("View Subcategory", "8"),
+      getItem("View Subcategory", "/dashboard/view-sub-category"),
     ]),
     {
       type: "divider",
