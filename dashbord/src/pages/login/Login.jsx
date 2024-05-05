@@ -9,45 +9,44 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
-    setLoading(true);
-    const url = "http://localhost:8000/api/v1/user/login";
-    // eslint-disable-next-line no-unused-vars
-    const data = await axios
-      .post(url, {
+    try {
+      setLoading(true);
+      const url = "http://localhost:8000/api/v1/user/login";
+      // eslint-disable-next-line no-unused-vars
+      const data = await axios.post(url, {
         email: values.email,
         password: values.password,
-      })
-      .then((data) => {
-        toast.success(data.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        setTimeout(() => {
-          navigate(`/`);
-        }, 2000);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err.response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
       });
+      toast.success(data.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      console.log(data.data.data);
+      setTimeout(() => {
+        // navigate(`/`);
+      }, 2000);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      toast.error(err.response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
   const onFinishFailed = (errorInfo) => {
     setLoading(false);

@@ -3,7 +3,7 @@ const secureAPI = (req, res, next) => {
   if (authorization !== process.env.API_SECRET) {
     return res.status(401).json({
       status: "Error",
-      message: " authorization",
+      message: " Un authorization",
     });
   }
   next();
