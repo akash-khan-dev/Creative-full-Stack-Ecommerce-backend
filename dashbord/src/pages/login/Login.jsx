@@ -1,11 +1,15 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { activeUser } from "../../ReduxFeature/UserSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -17,6 +21,7 @@ const Login = () => {
         email: values.email,
         password: values.password,
       });
+
       toast.success(data.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -28,9 +33,10 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
       });
-      console.log(data.data.data);
+      localStorage.setItem("user", JSON.stringify(data.data.data));
+      dispatch(activeUser(data.data.data));
       setTimeout(() => {
-        // navigate(`/`);
+        navigate(`/dashboard`);
       }, 2000);
       setLoading(false);
     } catch (err) {
