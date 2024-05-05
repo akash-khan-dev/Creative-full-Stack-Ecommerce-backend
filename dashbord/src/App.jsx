@@ -27,7 +27,7 @@ function App() {
           element={<EmailVerification />}
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/" element={<Dashboard />}>
           <Route path="add-category" element={<AddCategory />} />
           <Route path="add-sub-category" element={<AddSubCategory />} />
           <Route path="view-category" element={<ViewCategory />} />

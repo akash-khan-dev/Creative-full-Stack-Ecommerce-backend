@@ -36,7 +36,7 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data.data.data));
       dispatch(activeUser(data.data.data));
       setTimeout(() => {
-        navigate(`/dashboard`);
+        navigate(`/`);
       }, 2000);
       setLoading(false);
     } catch (err) {
