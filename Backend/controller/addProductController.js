@@ -1,6 +1,6 @@
 const ProductModel = require("../model/productModel");
 const multer = require("multer");
-const addProductController = (req, res, next) => {
+const addProductController = async (req, res, next) => {
   try {
     const storage = multer.diskStorage({
       destination: function (req, file, cb) {
