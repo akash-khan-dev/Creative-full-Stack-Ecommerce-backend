@@ -30,7 +30,7 @@ const Dashboard = () => {
     userInfo.role != "User" &&
       getItem("Product", "sub2", <ProductFilled />, [
         getItem("Add Product", "/dashboard/add-product"),
-        getItem("View Product", "4"),
+        getItem("View Product", "/dashboard/view-product"),
       ]),
     userInfo.role != "User" &&
       getItem("Category", "sub3", <ProductFilled />, [
