@@ -14,6 +14,7 @@ import AddCategory from "./pages/AddCaterory/AddCategory";
 import AddSubCategory from "./pages/AddSubCategory/AddSubCategory";
 import ViewCategory from "./pages/ViewCategory/ViewCategory";
 import ViewSubCategory from "./pages/ViewSubCategory/ViewSubCategory";
+import AddProduct from "./pages/AddProduct/AddProduct";
 
 function App() {
   const routes = createBrowserRouter(
@@ -27,11 +28,12 @@ function App() {
           element={<EmailVerification />}
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Dashboard />}>
+        <Route path="/dashboard" element={<Dashboard />}>
           <Route path="add-category" element={<AddCategory />} />
           <Route path="add-sub-category" element={<AddSubCategory />} />
           <Route path="view-category" element={<ViewCategory />} />
           <Route path="view-sub-category" element={<ViewSubCategory />} />
+          <Route path="add-product" element={<AddProduct />} />
         </Route>
       </Route>
     )

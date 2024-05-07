@@ -1,27 +1,28 @@
+import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-import { activeUser } from "../../ReduxFeature/UserSlice";
-
-const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+const AddProduct = () => {
   const [loading, setLoading] = useState(false);
-
+  const [image, setImage] = useState({});
   const onFinish = async (values) => {
+    console.log(values);
     try {
       setLoading(true);
-      const url = "http://localhost:8000/api/v1/user/login";
-      // eslint-disable-next-line no-unused-vars
-      const data = await axios.post(url, {
-        email: values.email,
-        password: values.password,
-      });
 
+      const url = "http://localhost:8000/api/v1/product/addprodect";
+      const data = await axios.post(
+        url,
+        {
+          name: values.name,
+          avatar: image,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       toast.success(data.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -33,14 +34,8 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
       });
-      localStorage.setItem("user", JSON.stringify(data.data.data));
-      dispatch(activeUser(data.data.data));
-      setTimeout(() => {
-        navigate(`/dashboard`);
-      }, 2000);
       setLoading(false);
     } catch (err) {
-      setLoading(false);
       toast.error(err.response.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -53,10 +48,13 @@ const Login = () => {
         transition: Bounce,
       });
     }
+    setLoading(false);
   };
   const onFinishFailed = (errorInfo) => {
-    setLoading(false);
-    console.log("error:", errorInfo);
+    console.log("Failed:", errorInfo);
+  };
+  const handleUploadImage = (e) => {
+    setImage(e.target.files[0]);
   };
   return (
     <>
@@ -80,30 +78,28 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Email"
-          name="email"
+          label="Product Name"
+          name="name"
           rules={[
             {
               required: true,
-              message: "Please input your Email!",
+              message: "Please input your product name",
             },
           ]}
         >
           <Input />
         </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password />
+        <Form.Item>
+          <label style={{ display: "inline-block", marginLeft: "40px" }}>
+            product image
+          </label>
+          <input
+            style={{ marginLeft: "10px", display: "inline" }}
+            onChange={handleUploadImage}
+            type="file"
+          />
         </Form.Item>
+
         <Form.Item
           wrapperCol={{
             offset: 8,
@@ -112,25 +108,16 @@ const Login = () => {
         >
           <Button
             type="primary"
+            htmlType="submit"
             loading={loading}
             disabled={loading}
-            htmlType="submit"
           >
             Submit
           </Button>
-
-          <Link to={"/forgotpass"} style={{ marginLeft: "20px" }}>
-            Forgot Password
-          </Link>
-          <div>
-            <p>
-              Create a new account ? <Link to={"/registration"}>Sing Up</Link>
-            </p>
-          </div>
         </Form.Item>
       </Form>
     </>
   );
 };
 
-export default Login;
+export default AddProduct;
