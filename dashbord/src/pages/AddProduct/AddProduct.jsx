@@ -1,10 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState({});
+  const [description, setDescription] = useState("");
   const onFinish = async (values) => {
     console.log(values);
     try {
@@ -15,6 +19,7 @@ const AddProduct = () => {
         url,
         {
           name: values.name,
+          description: description,
           avatar: image,
         },
         {
@@ -89,6 +94,26 @@ const AddProduct = () => {
         >
           <Input />
         </Form.Item>
+
+        <CKEditor
+          editor={ClassicEditor}
+          data=""
+          onReady={(editor) => {
+            // You can store the "editor" and use when it is needed.
+            // console.log("Editor is ready to use!", editor);
+          }}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setDescription(data);
+          }}
+          onBlur={(event, editor) => {
+            // console.log("Blur.", editor);
+          }}
+          onFocus={(event, editor) => {
+            // console.log("Focus.", editor);
+          }}
+        />
+
         <Form.Item>
           <label style={{ display: "inline-block", marginLeft: "40px" }}>
             product image
