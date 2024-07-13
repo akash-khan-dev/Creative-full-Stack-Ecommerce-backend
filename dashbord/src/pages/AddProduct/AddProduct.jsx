@@ -9,8 +9,8 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState({});
   const [description, setDescription] = useState("");
+  console.log(description);
   const onFinish = async (values) => {
-    console.log(values);
     try {
       setLoading(true);
 
