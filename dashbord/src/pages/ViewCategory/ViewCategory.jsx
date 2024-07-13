@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -23,12 +24,17 @@ const ViewCategory = () => {
 
   // for category approved
   const handleApproveCategory = async (record) => {
-    console.log(record);
     const url = "http://localhost:8000/api/v1/product/approvecategory";
     const data = await axios.post(url, {
       id: record.key,
       status: record.status,
     });
+  };
+
+  // for delete category
+  const handleDeleteCategory = async (record) => {
+    const url = `http://localhost:8000/api/v1/product/deletecategory/${record.key}`;
+    const data = await axios.delete(url);
   };
 
   const dataSource = categoryList;
@@ -50,10 +56,11 @@ const ViewCategory = () => {
       key: "action",
       render: (_, record) => (
         <>
-          <div>
+          <div style={{ display: "flex", gap: "5px" }}>
             <button onClick={() => handleApproveCategory(record)}>
               {record.status == "waiting" ? "Approve" : "Reject"}
             </button>
+            <button onClick={() => handleDeleteCategory(record)}>Delete</button>
           </div>
         </>
       ),

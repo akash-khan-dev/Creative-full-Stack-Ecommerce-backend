@@ -9,9 +9,11 @@ const ViewProductController = require("../../controller/ViewProductController");
 const verifyToken = require("../../middleware/verifyToken");
 const secureAPI = require("../../middleware/secureAPI");
 const approveCategoryController = require("../../controller/approveCategoryController");
+const deleteCategoryController = require("../../controller/deleteCategoryController");
 
 router.post("/addcategory", secureAPI, verifyToken, addCategoryController);
 router.post("/approvecategory", approveCategoryController);
+router.delete("/deletecategory/:id", deleteCategoryController);
 router.post("/addsubcategory", addSubCategoryController);
 router.get("/viewcategory", viewCategoryController);
 router.get("/viewsubcategory", viewSubCategoryController);
