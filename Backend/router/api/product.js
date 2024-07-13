@@ -8,8 +8,10 @@ const addProductController = require("../../controller/addProductController");
 const ViewProductController = require("../../controller/ViewProductController");
 const verifyToken = require("../../middleware/verifyToken");
 const secureAPI = require("../../middleware/secureAPI");
+const approveCategoryController = require("../../controller/approveCategoryController");
 
 router.post("/addcategory", secureAPI, verifyToken, addCategoryController);
+router.post("/approvecategory", approveCategoryController);
 router.post("/addsubcategory", addSubCategoryController);
 router.get("/viewcategory", viewCategoryController);
 router.get("/viewsubcategory", viewSubCategoryController);

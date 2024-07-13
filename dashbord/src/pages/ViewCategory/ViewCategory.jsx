@@ -21,6 +21,16 @@ const ViewCategory = () => {
     getCategory();
   }, []);
 
+  // for category approved
+  const handleApproveCategory = async (record) => {
+    console.log(record);
+    const url = "http://localhost:8000/api/v1/product/approvecategory";
+    const data = await axios.post(url, {
+      id: record.key,
+      status: record.status,
+    });
+  };
+
   const dataSource = categoryList;
 
   const columns = [
@@ -33,6 +43,20 @@ const ViewCategory = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_, record) => (
+        <>
+          <div>
+            <button onClick={() => handleApproveCategory(record)}>
+              {record.status == "waiting" ? "Approve" : "Reject"}
+            </button>
+          </div>
+        </>
+      ),
     },
   ];
   return (
