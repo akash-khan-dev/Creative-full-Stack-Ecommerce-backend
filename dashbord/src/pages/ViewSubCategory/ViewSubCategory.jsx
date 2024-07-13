@@ -12,6 +12,7 @@ const ViewSubCategory = () => {
       const subCategoryURL =
         "http://localhost:8000/api/v1/product/viewsubcategory";
       const subCategoryData = await axios.get(subCategoryURL);
+
       const subCategory = [];
 
       subCategoryData.data.data.subCategory.map((item) => {
@@ -28,6 +29,7 @@ const ViewSubCategory = () => {
     }
     getCategory();
   }, []);
+
   const dataSource = subCategoryList;
 
   const columns = [

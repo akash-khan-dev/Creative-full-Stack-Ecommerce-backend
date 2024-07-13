@@ -40,9 +40,6 @@ const Registration = () => {
           theme: "light",
           transition: Bounce,
         });
-        // setTimeout(() => {
-        //   navigate(`/otpVerification/${values.email}`);
-        // }, 2000);
         setLoading(false);
       })
       .catch((err) => {
