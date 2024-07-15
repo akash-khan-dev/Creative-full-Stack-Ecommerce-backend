@@ -1,9 +1,63 @@
 /* eslint-disable no-unused-vars */
-import { Button, Table } from "antd";
+import { Button, Table, Modal, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 const ViewSubCategory = () => {
   const [subCategoryList, setSubCategoryList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentRecord, setCurrentRecord] = useState({ name: "" });
+  const [editState, setEditState] = useState(null);
+  const [defaultCategory, setDefaultCategory] = useState("");
+  const [refresh, setRefresh] = useState(false);
+
+  // for edit modal show
+  const showModal = (record) => {
+    setCurrentRecord(record);
+    const filterCategory = record.categoryId.filter(
+      (category) => category !== false
+    );
+    setDefaultCategory(filterCategory[0]);
+    setEditState(record);
+    setIsModalOpen(true);
+  };
+  const handleOk = async () => {
+    try {
+      setIsModalOpen(false);
+      const url = `http://localhost:8000/api/v1/product/editsubcategory/${editState.key}`;
+      const data = await axios.put(url, {
+        name: currentRecord.name,
+      });
+      toast.success(data.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setRefresh(!refresh);
+    } catch (err) {
+      toast.error(err.response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   //for show Sub Category
   useEffect(() => {
@@ -34,11 +88,10 @@ const ViewSubCategory = () => {
       }
     }
     getCategory();
-  }, []);
+  }, [refresh]);
 
   // for approved sub categories
   const handleApproveSubCategory = async (record) => {
-    console.log(record);
     try {
       const categoryURl =
         "http://localhost:8000/api/v1/product/approvesubcategory";
@@ -46,6 +99,7 @@ const ViewSubCategory = () => {
         id: record.key,
         status: record.status,
       });
+      setRefresh(!refresh);
     } catch (err) {
       console.log(err.message);
     }
@@ -56,10 +110,21 @@ const ViewSubCategory = () => {
     try {
       const categoryURl = `http://localhost:8000/api/v1/product/deletesubcategory/${record.key}`;
       const deleteSubCategory = await axios.delete(categoryURl);
+      setRefresh(!refresh);
     } catch (err) {
       console.log(err.message);
     }
   };
+
+  // for View sub categories
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setCurrentRecord((prevRecord) => ({
+      ...prevRecord,
+      [name]: value,
+    }));
+  };
+
   const dataSource = subCategoryList;
 
   const columns = [
@@ -99,15 +164,40 @@ const ViewSubCategory = () => {
             <Button danger onClick={() => handleDeleteSubCategory(record)}>
               Delete
             </Button>
-            <Button type="primary">Edit</Button>
+            <Button onClick={() => showModal(record)} type="primary">
+              Edit
+            </Button>
           </div>
         </>
       ),
     },
   ];
+
+  // refresh the page
+
   return (
     <>
+      <ToastContainer />
       <Table dataSource={dataSource} columns={columns} />;
+      <Modal
+        title="Edit Sub Category"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <div>
+          <label htmlFor="subcategory">Sub Category</label>
+          <Input
+            value={currentRecord.name}
+            onChange={handleInputChange}
+            name="name"
+            id="subcategory"
+            placeholder="Sub Category"
+            style={{ marginBottom: "10px", marginTop: "8px" }}
+          />
+          <Select value={defaultCategory} />
+        </div>
+      </Modal>
     </>
   );
 };

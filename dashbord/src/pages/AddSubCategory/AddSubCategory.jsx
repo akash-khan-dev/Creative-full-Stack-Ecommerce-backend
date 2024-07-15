@@ -8,7 +8,6 @@ const AddSubCategory = () => {
   const [catId, setCatId] = useState("");
 
   const onFinish = async (values) => {
-    console.log(values.subcategory);
     try {
       setLoading(true);
       const url = "http://localhost:8000/api/v1/product/addsubcategory";
