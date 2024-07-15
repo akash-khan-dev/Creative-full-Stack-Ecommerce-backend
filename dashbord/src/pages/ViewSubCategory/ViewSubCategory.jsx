@@ -42,10 +42,20 @@ const ViewSubCategory = () => {
     try {
       const categoryURl =
         "http://localhost:8000/api/v1/product/approvesubcategory";
-      const categoryData = await axios.post(categoryURl, {
+      const approvedSubCategory = await axios.post(categoryURl, {
         id: record.key,
         status: record.status,
       });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  // for Sub category Delete
+  const handleDeleteSubCategory = async (record) => {
+    try {
+      const categoryURl = `http://localhost:8000/api/v1/product/deletesubcategory/${record.key}`;
+      const deleteSubCategory = await axios.delete(categoryURl);
     } catch (err) {
       console.log(err.message);
     }
@@ -86,7 +96,9 @@ const ViewSubCategory = () => {
             <Button onClick={() => handleApproveSubCategory(record)}>
               {record.status == "waiting" ? "Approve" : "Reject"}
             </Button>
-            <Button danger>Delete</Button>
+            <Button danger onClick={() => handleDeleteSubCategory(record)}>
+              Delete
+            </Button>
             <Button type="primary">Edit</Button>
           </div>
         </>
