@@ -6,6 +6,9 @@ const productModel = new Schema({
     type: String,
     required: true,
   },
+  slug: {
+    type: String,
+  },
   description: {
     type: String,
   },
