@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,8 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState({});
   const [description, setDescription] = useState("");
+  const [slug, setSlug] = useState("");
+  const inputRef = useRef();
   const onFinish = async (values) => {
     try {
       setLoading(true);
@@ -18,6 +20,7 @@ const AddProduct = () => {
         url,
         {
           name: values.name,
+          slug: slug.split(" ").join("-").toLocaleLowerCase(),
           description: description,
           avatar: image,
         },
@@ -54,6 +57,7 @@ const AddProduct = () => {
     }
     setLoading(false);
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -91,7 +95,23 @@ const AddProduct = () => {
             },
           ]}
         >
-          <Input />
+          <Input onChange={(e) => setSlug(e.target.value)} />
+        </Form.Item>
+
+        <Form.Item
+          label="Slug"
+          name="slug"
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please input your product name",
+          //   },
+          // ]}
+        >
+          <Input
+            disabled
+            placeholder={slug.split(" ").join("-").toLocaleLowerCase()}
+          />
         </Form.Item>
 
         <CKEditor
@@ -114,14 +134,21 @@ const AddProduct = () => {
         />
 
         <Form.Item>
-          <label style={{ display: "inline-block", marginLeft: "40px" }}>
-            product image
-          </label>
+          <label style={{ display: "inline-block" }}>Product image</label>
           <input
             style={{ marginLeft: "10px", display: "inline" }}
             onChange={handleUploadImage}
             type="file"
           />
+          {/* <div
+            style={{
+              width: "100px",
+              height: "100px",
+              border: "1px dashed gray",
+              cursor: "pointer",
+            }}
+            onClick={() => inputRef.current.click()}
+          ></div> */}
         </Form.Item>
 
         <Form.Item
