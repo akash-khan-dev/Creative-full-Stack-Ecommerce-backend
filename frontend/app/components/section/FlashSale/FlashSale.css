@@ -1,0 +1,18 @@
+.timer p {
+  text-align: center;
+}
+.timer p {
+  border: 1px solid#A7A7A7;
+  border-radius: 16px;
+  padding: 8px 20px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #a7a7a7;
+}
+
+.timer p span {
+  display: block;
+  color: #f46b5b;
+  font-weight: 700;
+  font-size: 24px;
+}
