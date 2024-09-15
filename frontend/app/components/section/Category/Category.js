@@ -18,7 +18,7 @@ const poppins = Poppins({
 
 const Category = () => {
   return (
-    <>
+    <section id="category">
       <Row>
         <Col>
           <div className="py-3">
@@ -76,7 +76,7 @@ const Category = () => {
           </div>
         </Col>
       </Row>
-    </>
+    </section>
   );
 };
 

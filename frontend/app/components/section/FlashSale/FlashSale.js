@@ -10,7 +10,7 @@ const FlashSale = () => {
   const timeLeft = useTimer(endDate);
   return (
     <>
-      <div className="py-10">
+      <section className="py-10">
         <Row>
           <Col>
             <div className="flash-hear d-flex align-items-center justify-content-between">
@@ -39,7 +39,7 @@ const FlashSale = () => {
         </Row>
 
         <FlashProduct />
-      </div>
+      </section>
     </>
   );
 };

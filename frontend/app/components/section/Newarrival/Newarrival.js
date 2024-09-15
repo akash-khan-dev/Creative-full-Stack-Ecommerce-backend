@@ -17,7 +17,7 @@ const monserrat = Montserrat({
 const Newarrival = () => {
   return (
     <>
-      <div className="py-5">
+      <section className="py-5">
         <Row>
           <Col>
             <div className="d-flex align-items-center justify-content-between mb-2">
@@ -35,7 +35,7 @@ const Newarrival = () => {
         </Row>
 
         <NewProduct />
-      </div>
+      </section>
     </>
   );
 };
