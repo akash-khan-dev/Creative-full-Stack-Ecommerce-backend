@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa6";
 
 import { Montserrat, Poppins } from "next/font/google";
 import { Col, Row } from "react-bootstrap";
+import NewProduct from "./NewProduct";
 
 const poppins = Poppins({
   weight: "400",
@@ -32,89 +33,8 @@ const Newarrival = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <div className="new-product d-flex">
-              <div className="pro-img">
-                <img src="" alt="" />
-                <div className="badge">
-                  <div className={poppins.className}>
-                    <small className="fs-6">New</small>
-                  </div>
-                </div>
-              </div>
-              <div className="pro-details d-flex justify-content-center align-items-center">
-                <div>
-                  <h4 className={poppins.className}>Smartphone 5G</h4>
-                  <h5>$299.00 5G</h5>
-                  <div className="pro-rating d-flex">
-                    <div>
-                      <FaStar color="#FFD687" />
-                      <span>5.0</span>
-                    </div>
-                    <div>
-                      <small>Sold 99</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col>
-            <div className="new-product d-flex">
-              <div className="pro-img">
-                <img src="" alt="" />
-                <div className="badge">
-                  <div className={poppins.className}>
-                    <small className="fs-6">New</small>
-                  </div>
-                </div>
-              </div>
-              <div className="pro-details d-flex justify-content-center align-items-center">
-                <div>
-                  <h4 className={poppins.className}>Smartphone 5G</h4>
-                  <h5>$299.00 5G</h5>
-                  <div className="pro-rating d-flex">
-                    <div>
-                      <FaStar color="#FFD687" />
-                      <span>5.0</span>
-                    </div>
-                    <div>
-                      <small>Sold 99</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col>
-            <div className="new-product d-flex">
-              <div className="pro-img">
-                <img src="" alt="" />
-                <div className="badge">
-                  <div className={poppins.className}>
-                    <small className="fs-6">New</small>
-                  </div>
-                </div>
-              </div>
-              <div className="pro-details d-flex justify-content-center align-items-center">
-                <div>
-                  <h4 className={poppins.className}>Smartphone 5G</h4>
-                  <h5>$299.00 5G</h5>
-                  <div className="pro-rating d-flex">
-                    <div>
-                      <FaStar color="#FFD687" />
-                      <span>5.0</span>
-                    </div>
-                    <div>
-                      <small>Sold 99</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-        </Row>
+
+        <NewProduct />
       </div>
     </>
   );

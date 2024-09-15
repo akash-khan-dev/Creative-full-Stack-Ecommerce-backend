@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 import "bootstrap/dist/css/bootstrap.min.css";
+import "swiper/css";
 import Navbar from "./components/section/Navbar";
 import Footer from "./components/section/Footer";
 
