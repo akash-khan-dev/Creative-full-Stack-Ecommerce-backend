@@ -1,0 +1,76 @@
+.best-collection {
+  height: 535px;
+  background-color: #f46b5b;
+  border-radius: 32px;
+  padding: 40px;
+}
+.best-collection h2 {
+  font-size: 36px;
+  color: #fafafa;
+}
+.best-collection p {
+  font-size: 18px;
+  color: #fafafa;
+  padding: 24px 0px;
+}
+.best-collection button {
+  padding: 12px 25px;
+  background-color: transparent;
+  border: 1px solid #fafafa;
+  border-radius: 8px;
+  color: #fafafa;
+}
+.featured-product-wrapper {
+  border: 1px solid #a7a7a7;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.featured-product-img {
+  height: 60%;
+  position: relative;
+}
+.featured-badge-one {
+  padding: 8px 10px;
+  background-color: #2d9cdb;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 8px;
+  color: #fff;
+}
+.featured-badge-two {
+  background-color: #bb6bd9;
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  top: 70px;
+  right: 20px;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.featured-product-content {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+.featured-product-name h2 {
+  font-size: 22px;
+  color: #383838;
+}
+.add-card-btn button {
+  padding: 11px 28px;
+  background-color: #f46b5b;
+  border: none;
+  border-radius: 8px;
+  color: #fafafa;
+  transition: all linear 0.3s;
+  margin-top: 10px;
+}
+.add-card-btn button:hover {
+  background-color: transparent;
+  border: 1px solid #f46b5b;
+  color: #383838;
+}

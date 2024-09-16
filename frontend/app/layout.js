@@ -3,6 +3,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import Navbar from "./components/section/Navbar";
 import Footer from "./components/section/Footer";
 
