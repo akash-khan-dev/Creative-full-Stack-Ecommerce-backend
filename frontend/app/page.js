@@ -6,6 +6,7 @@ import Brand from "./components/section/Brand/Brand";
 import Advice from "./components/section/Advice/Advice";
 import Banner from "./components/section/Banner/Banner";
 import Featured from "./components/section/Featured/Featured";
+import TopRated from "./components/section/TopRated/TopRated";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Brand />
         <Advice />
         <Featured />
+        <TopRated />
       </Container>
     </>
   );
