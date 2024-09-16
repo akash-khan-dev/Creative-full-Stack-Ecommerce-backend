@@ -1,8 +1,18 @@
 .banner-img {
   overflow: hidden;
+  border-radius: 32px;
 }
 .banner-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.banner-add-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.add-img-wrapper {
+  border-radius: 32px;
+  overflow: hidden;
 }
