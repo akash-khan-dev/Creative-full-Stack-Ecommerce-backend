@@ -14,7 +14,7 @@ const poppins = Poppins({
 });
 const TopRated = () => {
   return (
-    <section id="top-rated" className="py-4">
+    <section id="top-rated" className="py-4 mb-5">
       <Row>
         <Col lg={12}>
           <Heading title={"Top Rated Product"} />

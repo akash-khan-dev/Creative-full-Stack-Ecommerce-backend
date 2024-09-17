@@ -61,9 +61,10 @@
   color: #383838;
 }
 .add-card-btn button {
-  padding: 11px 28px;
+  padding: 10px 28px;
   background-color: #f46b5b;
-  border: none;
+  border: 1px solid #f46b5b;
+
   border-radius: 8px;
   color: #fafafa;
   transition: all linear 0.3s;
@@ -71,6 +72,5 @@
 }
 .add-card-btn button:hover {
   background-color: transparent;
-  border: 1px solid #f46b5b;
   color: #383838;
 }

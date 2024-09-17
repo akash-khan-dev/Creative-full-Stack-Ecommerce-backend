@@ -3,7 +3,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css";
-import Footer from "./components/section/Footer";
+import Footer from "./components/section/Footer/Footer";
 import Menubar from "./components/section/Menubar/Menubar";
 
 export const metadata = {

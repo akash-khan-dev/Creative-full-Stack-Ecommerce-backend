@@ -1,0 +1,46 @@
+.news-latter {
+  background-color: #f46b5b;
+}
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.latter-content h3 {
+  font-size: 48px;
+  color: #fafafa;
+}
+.latter-content p {
+  font-size: 18px;
+  color: #fafafa;
+}
+.subscription-box {
+  position: relative;
+}
+.subscription-box input {
+  padding: 20px 32px;
+  width: 380px;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+}
+.subscription-box input::placeholder {
+  color: #a7a7a7;
+}
+.subscription-box button {
+  position: absolute;
+  top: 9px;
+  right: 45px;
+  background-color: #383838;
+  padding: 11px 30px;
+  border: 2px solid #f46b5b;
+  font-weight: 700;
+  color: #fefcfb;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+.subscription-box button:hover {
+  background-color: transparent;
+  font-weight: 700;
+  color: #f46b5b;
+}
