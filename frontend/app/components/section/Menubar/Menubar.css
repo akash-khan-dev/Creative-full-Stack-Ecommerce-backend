@@ -58,3 +58,29 @@
   height: 100%;
   font-size: 12px;
 }
+.topbar-wrapper {
+  border-bottom: 1px solid #e3e3e3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0px;
+}
+.social-icon {
+  display: flex;
+  gap: 25px;
+}
+.information {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.info-icon small {
+  font-size: 18px;
+  color: #383838;
+}
