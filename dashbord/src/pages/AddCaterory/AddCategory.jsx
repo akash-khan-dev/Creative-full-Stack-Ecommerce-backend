@@ -2,16 +2,31 @@ import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const AddCategory = () => {
   const [loading, setLoading] = useState(false);
+  const [categoryImage, setCategoryImage] = useState("");
+  const userInfo = useSelector((user) => user.user.value);
+
   const onFinish = async (values) => {
     try {
       setLoading(true);
       const url = "http://localhost:8000/api/v1/product/addcategory";
-      const data = await axios.post(url, {
-        name: values.category,
-      });
+      const data = await axios.post(
+        url,
+        {
+          name: values.category,
+          avatar: categoryImage,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            authorization: "9560ae25-vswa-7160-9fyd-f6cee413cbe6",
+            token: userInfo.token,
+          },
+        }
+      );
       toast.success(data.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -41,6 +56,9 @@ const AddCategory = () => {
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+  const handleUploadCategoryImage = (e) => {
+    setCategoryImage(e.target.files[0]);
   };
   return (
     <>
@@ -82,6 +100,14 @@ const AddCategory = () => {
             span: 16,
           }}
         >
+          <Form.Item>
+            <label style={{ display: "inline-block" }}>Category Image</label>
+            <input
+              style={{ marginLeft: "10px", display: "inline" }}
+              onChange={handleUploadCategoryImage}
+              type="file"
+            />
+          </Form.Item>
           <Button
             type="primary"
             htmlType="submit"
