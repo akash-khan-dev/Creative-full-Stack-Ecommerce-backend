@@ -1,11 +1,11 @@
-import React from "react";
 import "./Category.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "next/image";
-import categoryIcon from "../../../Image/icon (1).png";
 import { Montserrat } from "next/font/google";
 import { Poppins } from "next/font/google";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const monserrat = Montserrat({
   weight: "700",
@@ -17,6 +17,31 @@ const poppins = Poppins({
 });
 
 const Category = () => {
+  const [categoryList, setCategoryList] = useState([]);
+  useEffect(() => {
+    async function getCategory() {
+      try {
+        const url = "http://localhost:8000/api/v1/product/viewcategory";
+        const data = await axios.get(url);
+        const category = [];
+        data.data.data.category.map((item) => {
+          if (item.status === "approved") {
+            category.push({
+              key: item._id,
+              name: item.name,
+              status: item.status,
+              image: item.image,
+            });
+          }
+          setCategoryList(category);
+        });
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+    getCategory();
+  }, []);
+
   return (
     <section id="category">
       <Row>
@@ -31,50 +56,21 @@ const Category = () => {
         </Col>
       </Row>
       <Row>
-        <Col className="text-center px-4">
-          <div className={poppins.className}>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2 fs-4" style={{ color: "#383838" }}>
-              Computer & Laptop
-            </h5>
-          </div>
-        </Col>
-        <Col className="text-center px-4">
-          <div>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2">Mobile & Tablet</h5>
-          </div>
-        </Col>
-        <Col className="text-center px-4">
-          <div>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2">Camera</h5>
-          </div>
-        </Col>
-        <Col className="text-center px-4">
-          <div>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2">TV & Smart Box</h5>
-          </div>
-        </Col>
-        <Col className="text-center px-4">
-          <div>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2">Home Appliance</h5>
-          </div>
-        </Col>
-        <Col className="text-center px-4">
-          <div>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2">Accessories</h5>
-          </div>
-        </Col>
-        <Col className="text-center px-4">
-          <div>
-            <Image src={categoryIcon} width={80} height={80} />
-            <h5 className="mt-2">Other Categories</h5>
-          </div>
-        </Col>
+        {categoryList.map((category) => (
+          <Col lg={2} key={category.key} className="text-center ">
+            <div className={poppins.className}>
+              <Image
+                src={`http:/localhost:8000/${category.image}`}
+                width={80}
+                height={80}
+                alt="category"
+              />
+              <h5 className="mt-2 fs-4" style={{ color: "#383838" }}>
+                {category.name}
+              </h5>
+            </div>
+          </Col>
+        ))}
       </Row>
     </section>
   );

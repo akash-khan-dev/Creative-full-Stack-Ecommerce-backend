@@ -64,6 +64,7 @@ const ViewCategory = () => {
           key: item._id,
           name: item.name,
           status: item.status,
+          image: item.image,
         });
       });
       setCategoryList(category);
@@ -103,6 +104,18 @@ const ViewCategory = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (_, record) => (
+        <img
+          width={30}
+          src={`http://localhost:8000/${record.image}`}
+          alt="product"
+        />
+      ),
     },
     {
       title: "Status",
