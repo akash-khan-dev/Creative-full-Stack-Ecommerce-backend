@@ -1,0 +1,60 @@
+.navbar {
+  padding: 25px 0px !important;
+}
+.navbar .navbar-nav a {
+  padding: 0px 20px !important;
+}
+.navbar .navbar-nav a:hover {
+  font-weight: 500;
+  transition: all linear 0.3s !important;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+}
+.search-box input {
+  border: none;
+  background-color: #d0d0d240;
+  padding: 8px 100px 8px 25px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  outline: none;
+}
+.search-icon {
+  background-color: #f46b5b;
+  padding: 7px 6px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  cursor: pointer;
+}
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: 70px;
+}
+.shop-icon {
+  position: relative;
+  cursor: pointer;
+}
+.message-icon {
+  cursor: pointer;
+}
+.notification-count {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 22px;
+  height: 22px;
+  background-color: #f46b5b;
+  border-radius: 50%;
+}
+.notification-count p {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 12px;
+}
