@@ -16,31 +16,11 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-const Category = () => {
-  const [categoryList, setCategoryList] = useState([]);
-  useEffect(() => {
-    async function getCategory() {
-      try {
-        const url = "http://localhost:8000/api/v1/product/viewcategory";
-        const data = await axios.get(url);
-        const category = [];
-        data.data.data.category.map((item) => {
-          if (item.status === "approved") {
-            category.push({
-              key: item._id,
-              name: item.name,
-              status: item.status,
-              image: item.image,
-            });
-          }
-          setCategoryList(category);
-        });
-      } catch (e) {
-        console.log(e.message);
-      }
-    }
-    getCategory();
-  }, []);
+const Category = async () => {
+  const category = await fetch(
+    "http://localhost:8000/api/v1/product/viewcategory"
+  );
+  const data = await category.json();
 
   return (
     <section id="category">
@@ -56,21 +36,24 @@ const Category = () => {
         </Col>
       </Row>
       <Row>
-        {categoryList.map((category) => (
-          <Col lg={2} key={category.key} className="text-center ">
-            <div className={poppins.className}>
-              <Image
-                src={`http:/localhost:8000/${category.image}`}
-                width={80}
-                height={80}
-                alt="category"
-              />
-              <h5 className="mt-2 fs-4" style={{ color: "#383838" }}>
-                {category.name}
-              </h5>
-            </div>
-          </Col>
-        ))}
+        {data.data.category.map(
+          (category) =>
+            category.status === "approved" && (
+              <Col lg={2} key={category.key} className="text-center ">
+                <div className={poppins.className}>
+                  <Image
+                    src={`http:/localhost:8000/${category.image}`}
+                    width={80}
+                    height={80}
+                    alt="category"
+                  />
+                  <h5 className="mt-2 fs-4" style={{ color: "#383838" }}>
+                    {category.name}
+                  </h5>
+                </div>
+              </Col>
+            )
+        )}
       </Row>
     </section>
   );
