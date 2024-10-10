@@ -10,6 +10,8 @@ const ViewProduct = () => {
       const data = await axios.get(url);
       const productArr = [];
       data.data.data.map((item) => {
+        console.log(item.regularPrice);
+
         const oembedRegex = /<oembed[^>]*>/g;
         const oembedMatch = item?.description?.match(oembedRegex);
         if (oembedMatch) {
@@ -25,6 +27,8 @@ const ViewProduct = () => {
         productArr.push({
           key: item._id,
           name: item.name,
+          regularPrice: item.regularPrice,
+          discount: item.discount,
           description: item.description,
           image: item.image,
         });
@@ -41,6 +45,16 @@ const ViewProduct = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "Regular Price",
+      dataIndex: "regularPrice",
+      key: "regularPrice",
+    },
+    {
+      title: "Discount Price",
+      dataIndex: "discount",
+      key: "discount",
     },
     {
       title: "Description",
