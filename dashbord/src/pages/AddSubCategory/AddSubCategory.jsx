@@ -48,16 +48,20 @@ const AddSubCategory = () => {
 
   useEffect(() => {
     async function getCategory() {
-      const url = "http://localhost:8000/api/v1/product/viewcategory";
-      const data = await axios.get(url);
-      const category = [];
-      data.data.data.category.map((item) => {
-        category.push({
-          value: item._id,
-          label: item.name,
+      try {
+        const url = "http://localhost:8000/api/v1/product/viewcategory";
+        const data = await axios.get(url);
+        const category = [];
+        data.data.data.category.map((item) => {
+          category.push({
+            value: item._id,
+            label: item.name,
+          });
         });
-      });
-      setCategoryList(category);
+        setCategoryList(category);
+      } catch (e) {
+        console.log(e);
+      }
     }
     getCategory();
   }, []);

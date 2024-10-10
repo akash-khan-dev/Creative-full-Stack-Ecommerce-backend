@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useRef, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { useEffect, useRef, useState } from "react";
+import { Button, Form, Input, Select } from "antd";
 import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -10,7 +10,12 @@ const AddProduct = () => {
   const [image, setImage] = useState({});
   const [description, setDescription] = useState("");
   const [slug, setSlug] = useState("");
-  const inputRef = useRef();
+  const [categoryList, setCategoryList] = useState([]);
+  const [SubCategoryList, setSubCategoryList] = useState([]);
+  const [catId, setCatId] = useState("");
+  const [subCatId, setSubCatId] = useState("");
+
+  // const inputRef = useRef();
   const onFinish = async (values) => {
     try {
       setLoading(true);
@@ -21,6 +26,10 @@ const AddProduct = () => {
         {
           name: values.name,
           slug: slug.split(" ").join("-").toLocaleLowerCase(),
+          regularPrice: values.price,
+          discount: values.discount,
+          catId: catId,
+          subCatId: subCatId,
           description: description,
           avatar: image,
         },
@@ -56,6 +65,41 @@ const AddProduct = () => {
       });
     }
     setLoading(false);
+  };
+
+  // show category
+  useEffect(() => {
+    async function getCategory() {
+      const url = "http://localhost:8000/api/v1/product/viewcategory";
+      const data = await axios.get(url);
+      const category = [];
+      data.data.data.category.map((item) => {
+        category.push({
+          value: item._id,
+          label: item.name,
+        });
+      });
+      setCategoryList(category);
+    }
+    getCategory();
+  }, []);
+
+  const handleChange = async (e) => {
+    try {
+      const url = `http://localhost:8000/api/v1/product/singlesubcategory/${e}`;
+      const data = await axios.get(url);
+      const SubCategory = [];
+      data.data.subcategory.map((item) => {
+        SubCategory.push({
+          value: item._id,
+          label: item.name,
+        });
+      });
+      setSubCategoryList(SubCategory);
+      setCatId(e);
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -114,6 +158,59 @@ const AddProduct = () => {
           />
         </Form.Item>
 
+        <Form.Item
+          label="Product Price"
+          name="price"
+          rules={[
+            {
+              required: true,
+              message: "Please input your product price",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Product Discount Price"
+          name="discount"
+          rules={[
+            {
+              required: true,
+              message: "Please input your product discount price",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        {/* category box */}
+
+        <span style={{ marginLeft: "130px", marginRight: "12px" }}>
+          Category
+        </span>
+        <Select
+          style={{
+            width: 120,
+            marginBottom: "20px",
+          }}
+          onChange={handleChange}
+          options={categoryList}
+        />
+        {SubCategoryList.length > 0 && (
+          <div>
+            <span style={{ marginLeft: "100px", marginRight: "12px" }}>
+              Sub Category
+            </span>
+            <Select
+              style={{
+                width: 120,
+                marginBottom: "20px",
+              }}
+              onChange={(e) => setSubCatId(e)}
+              options={SubCategoryList}
+            />
+          </div>
+        )}
         <CKEditor
           editor={ClassicEditor}
           data=""

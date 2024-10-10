@@ -15,12 +15,24 @@ const addProductController = async (req, res, next) => {
     const upload = multer({ storage: storage }).single("avatar");
 
     upload(req, res, function (err) {
-      const { name, slug, description } = req.body;
+      const {
+        name,
+        slug,
+        regularPrice,
+        discount,
+        catId,
+        subCatId,
+        description,
+      } = req.body;
 
       const image = req.file.path;
       const product = new ProductModel({
         name: name,
         slug: slug,
+        regularPrice: regularPrice,
+        discount: discount,
+        catId: catId,
+        subCatId: subCatId,
         description: description,
         image: image,
       });

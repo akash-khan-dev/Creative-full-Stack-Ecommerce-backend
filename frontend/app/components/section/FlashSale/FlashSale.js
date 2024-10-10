@@ -6,7 +6,7 @@ import { useTimer } from "@/app/utils/useTimer";
 import FlashProduct from "./FlashProduct";
 
 const FlashSale = () => {
-  const endDate = "2024-12-31";
+  const endDate = "2024-10-31";
   const timeLeft = useTimer(endDate);
   return (
     <>

@@ -9,6 +9,19 @@ const productModel = new Schema({
   slug: {
     type: String,
   },
+  regularPrice: {
+    type: String,
+  },
+  discount: {
+    type: String,
+  },
+  catId: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+  },
+  subCatId: {
+    type: String,
+  },
   description: {
     type: String,
   },

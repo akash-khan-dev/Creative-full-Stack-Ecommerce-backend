@@ -39,7 +39,7 @@ const Category = async () => {
         {data.data.category.map(
           (category) =>
             category.status === "approved" && (
-              <Col lg={2} key={category.key} className="text-center ">
+              <Col lg={2} key={category._id} className="text-center ">
                 <div className={poppins.className}>
                   <Image
                     src={`http:/localhost:8000/${category.image}`}
