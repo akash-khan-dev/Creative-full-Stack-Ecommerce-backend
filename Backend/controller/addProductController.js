@@ -31,13 +31,13 @@ const addProductController = async (req, res, next) => {
         catId,
         subCatId,
         description,
+        proType,
       } = req.body;
 
       let imageArr = [];
       req.files.map((item) => {
         imageArr.push(item.path);
       });
-      console.log(imageArr);
 
       // Now, you can create the new product with the file paths
       const product = new ProductModel({
@@ -46,6 +46,7 @@ const addProductController = async (req, res, next) => {
         slug: slug,
         regularPrice: regularPrice,
         discount: discount,
+        proType: proType,
         catId: catId,
         subCatId: subCatId,
         description: description,

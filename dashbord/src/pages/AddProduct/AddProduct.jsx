@@ -12,6 +12,29 @@ const AddProduct = () => {
   const [slug, setSlug] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [SubCategoryList, setSubCategoryList] = useState([]);
+  const [type, setType] = useState("");
+  const [proType, setProType] = useState([
+    {
+      value: "normal",
+      label: "normal",
+    },
+    {
+      value: "New",
+      label: "New Arrival",
+    },
+    {
+      value: "feature",
+      label: "Featured Products",
+    },
+    {
+      value: "top",
+      label: "Top Rated Product",
+    },
+    {
+      value: "flash",
+      label: "Flash Sale",
+    },
+  ]);
   const [catId, setCatId] = useState("");
   const [subCatId, setSubCatId] = useState("");
 
@@ -25,6 +48,7 @@ const AddProduct = () => {
       formData.append("regularPrice", values.price);
       formData.append("discount", values.discount);
       formData.append("catId", catId);
+      formData.append("proType", type);
       formData.append("subCatId", subCatId);
       formData.append("description", description);
       image.forEach((item) => {
@@ -111,6 +135,7 @@ const AddProduct = () => {
     let arr = Array.from(e.target.files);
     setImage(arr);
   };
+
   return (
     <>
       <ToastContainer />
@@ -214,6 +239,19 @@ const AddProduct = () => {
             />
           </div>
         )}
+        <div>
+          <span style={{ marginLeft: "45px", marginRight: "12px" }}>
+            Select Product Section
+          </span>
+          <Select
+            style={{
+              width: 120,
+              marginBottom: "20px",
+            }}
+            onChange={(e) => setType(e)}
+            options={proType}
+          />
+        </div>
         <CKEditor
           editor={ClassicEditor}
           data=""

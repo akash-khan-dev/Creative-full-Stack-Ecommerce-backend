@@ -22,6 +22,9 @@ const productModel = new Schema({
   subCatId: {
     type: String,
   },
+  proType: {
+    type: String,
+  },
   description: {
     type: String,
   },
