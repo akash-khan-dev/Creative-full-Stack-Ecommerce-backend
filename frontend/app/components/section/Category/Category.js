@@ -4,8 +4,6 @@ import Col from "react-bootstrap/Col";
 import Image from "next/image";
 import { Montserrat } from "next/font/google";
 import { Poppins } from "next/font/google";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const monserrat = Montserrat({
   weight: "700",
@@ -16,11 +14,19 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-const Category = async () => {
+async function getData() {
   const category = await fetch(
     "http://localhost:8000/api/v1/product/viewcategory"
   );
-  const data = await category.json();
+
+  if (!category.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return category.json();
+}
+const Category = async () => {
+  const data = await getData();
 
   return (
     <section id="category">

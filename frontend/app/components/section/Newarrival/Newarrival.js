@@ -7,19 +7,12 @@ import { Col, Row } from "react-bootstrap";
 import NewProduct from "./NewProduct";
 import Heading from "../../common/Heading/Heading";
 
-const poppins = Poppins({
-  weight: "400",
-  subsets: ["latin"],
-});
-const monserrat = Montserrat({
-  weight: "700",
-  subsets: ["latin"],
-});
 const Newarrival = () => {
   return (
     <>
       <section className="py-5">
         <Heading title="New Arrival" />
+
         <NewProduct />
       </section>
     </>

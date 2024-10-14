@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import { Container } from "react-bootstrap";
 import Category from "./components/section/Category/Category";
 import Newarrival from "./components/section/Newarrival/Newarrival";
