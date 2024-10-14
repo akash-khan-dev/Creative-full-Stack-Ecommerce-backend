@@ -7,7 +7,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState({});
+  const [image, setImage] = useState([]);
   const [description, setDescription] = useState("");
   const [slug, setSlug] = useState("");
   const [categoryList, setCategoryList] = useState([]);
@@ -19,20 +19,22 @@ const AddProduct = () => {
   const onFinish = async (values) => {
     try {
       setLoading(true);
-
+      let formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("slug", slug.split(" ").join("-").toLocaleLowerCase());
+      formData.append("regularPrice", values.price);
+      formData.append("discount", values.discount);
+      formData.append("catId", catId);
+      formData.append("subCatId", subCatId);
+      formData.append("description", description);
+      image.forEach((item) => {
+        formData.append("avatar", item);
+      });
       const url = "http://localhost:8000/api/v1/product/addprodect";
       const data = await axios.post(
         url,
-        {
-          name: values.name,
-          slug: slug.split(" ").join("-").toLocaleLowerCase(),
-          regularPrice: values.price,
-          discount: values.discount,
-          catId: catId,
-          subCatId: subCatId,
-          description: description,
-          avatar: image,
-        },
+
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -106,7 +108,8 @@ const AddProduct = () => {
     console.log("Failed:", errorInfo);
   };
   const handleUploadImage = (e) => {
-    setImage(e.target.files[0]);
+    let arr = Array.from(e.target.files);
+    setImage(arr);
   };
   return (
     <>
@@ -235,6 +238,7 @@ const AddProduct = () => {
           <input
             style={{ marginLeft: "10px", display: "inline" }}
             onChange={handleUploadImage}
+            multiple
             type="file"
           />
           {/* <div

@@ -25,10 +25,7 @@ const productModel = new Schema({
   description: {
     type: String,
   },
-  image: {
-    type: String,
-    required: true,
-  },
+  image: [String],
 });
 
 const Product = model("Product", productModel);

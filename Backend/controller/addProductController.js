@@ -1,20 +1,28 @@
 const ProductModel = require("../model/productModel");
 const multer = require("multer");
+
+// Multer storage configuration
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./images");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage }).array("avatar", 12);
+
 const addProductController = async (req, res, next) => {
-  try {
-    const storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, "./images");
-      },
-      filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, uniqueSuffix + "-" + file.originalname);
-      },
-    });
+  upload(req, res, async function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json({ message: "Multer error", err });
+    } else if (err) {
+      return res.status(500).json({ message: "Unknown error", err });
+    }
 
-    const upload = multer({ storage: storage }).single("avatar");
-
-    upload(req, res, function (err) {
+    try {
       const {
         name,
         slug,
@@ -25,8 +33,15 @@ const addProductController = async (req, res, next) => {
         description,
       } = req.body;
 
-      const image = req.file.path;
+      let imageArr = [];
+      req.files.map((item) => {
+        imageArr.push(item.path);
+      });
+      console.log(imageArr);
+
+      // Now, you can create the new product with the file paths
       const product = new ProductModel({
+        image: imageArr, // Assuming your model has an array for multiple images
         name: name,
         slug: slug,
         regularPrice: regularPrice,
@@ -34,16 +49,15 @@ const addProductController = async (req, res, next) => {
         catId: catId,
         subCatId: subCatId,
         description: description,
-        image: image,
       });
-      product.save();
-    });
 
-    return res
-      .status(200)
-      .json({ status: "success", message: "product added successfully" });
-  } catch (err) {
-    return res.status(404).json({ status: "error", message: err.message });
-  }
+      await product.save();
+
+      res.status(201).json({ message: "Product added successfully!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error saving product", error });
+    }
+  });
 };
+
 module.exports = addProductController;
