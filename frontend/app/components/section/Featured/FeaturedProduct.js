@@ -21,7 +21,8 @@ async function getData() {
 }
 const FeaturedProduct = async () => {
   const product = await getData();
-  const theeProduct = product.data.slice(0, 3);
+  const newProduct = product.data.filter((data) => data.proType === "feature");
+  const theeProduct = newProduct.slice(0, 3);
 
   return (
     <>
@@ -56,13 +57,14 @@ const FeaturedProduct = async () => {
                     </div>
                     <div className="featured-product-price d-flex justify-content-center">
                       <div className="old-price ">
-                        <span>{product.discount}</span>
+                        <span>{product.regularPrice}</span>
                       </div>
                       <div className="new-price">
                         <span>
-                          {" "}
                           <span>-</span>
-                          {product.regularPrice}
+                          {product.discount
+                            ? product.regularPrice - product.discount
+                            : product.regularPrice}
                         </span>
                       </div>
                     </div>
