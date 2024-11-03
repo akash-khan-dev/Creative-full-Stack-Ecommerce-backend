@@ -29,7 +29,7 @@ const NewProduct = async () => {
       <Row>
         {theeProduct.map((item) => (
           <Col key={item._id} lg={4}>
-            <Link href={`pages/Product/${item.name}`}>
+            <Link href={`pages/Product/${item.slug}`}>
               <div className="new-product-wrapper d-flex">
                 <div className="pro-img">
                   <Image

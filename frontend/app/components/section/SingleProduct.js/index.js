@@ -21,10 +21,13 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ShowReview from "./ShowReview";
 import AddReview from "./AddReview";
 const poppins = Poppins({
-  weight: "500",
+  weight: "400",
   subsets: ["latin"],
 });
-const SingleProduct = () => {
+
+const SingleProduct = ({ data }) => {
+  const product = data.data;
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   let [quality, setQuality] = useState(1);
   let [active, setActive] = useState(1);
@@ -45,36 +48,16 @@ const SingleProduct = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
               >
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                </SwiperSlide>
+                {product.image.map((item, index) => (
+                  <SwiperSlide>
+                    <Image
+                      src={`http://localhost:8000/${item}`}
+                      width={400}
+                      height={400}
+                      alt="product"
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <div className="thumbails">
                 <Swiper
@@ -86,36 +69,16 @@ const SingleProduct = () => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper"
                 >
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                  </SwiperSlide>
+                  {product.image.map((item, index) => (
+                    <SwiperSlide>
+                      <Image
+                        src={`http://localhost:8000/${item}`}
+                        width={400}
+                        height={400}
+                        alt="product"
+                      />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             </div>
@@ -125,7 +88,7 @@ const SingleProduct = () => {
               <div className="details">
                 <div className="bread-crumb">
                   <p className={poppins.className}>
-                    Product {" > "} <span>Product Name</span>
+                    Product {" > "} <span>{product.name}</span>
                   </p>
                 </div>
                 <div className="rate-and-wish">
@@ -158,18 +121,36 @@ const SingleProduct = () => {
                   </div>
                 </div>
                 <div className="product-name">
-                  <h4 className={poppins.className}>Wireless Microphone</h4>
+                  <h4 className={poppins.className}>{product.name}</h4>
                 </div>
                 <div className="product-price">
-                  <div className="price">
-                    <h5 className={poppins.className}>$29.00</h5>
-                  </div>
-                  <div className="discount">
-                    <span className={poppins.className}>$99.00</span>
-                  </div>
-                  <div className="save">
-                    <span className={poppins.className}>Save 50%</span>
-                  </div>
+                  {product.discount ? (
+                    <>
+                      <div className="price">
+                        <h5 className={poppins.className}>
+                          ${product.regularPrice - product.discount}
+                        </h5>
+                      </div>
+                      <div className="discount">
+                        <span className={poppins.className}>
+                          ${product.regularPrice}
+                        </span>
+                      </div>
+                      <div className="save">
+                        <span className={poppins.className}>
+                          Save{" "}
+                          {Math.round(
+                            (product.discount / product.regularPrice) * 100
+                          )}
+                          %
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <h5 className={poppins.className}>
+                      ${product.regularPrice}
+                    </h5>
+                  )}
                 </div>
                 <div className="product-info">
                   <div className="delivery">
@@ -188,11 +169,10 @@ const SingleProduct = () => {
               </div>
               <div className="product-description">
                 <h4 className={poppins.className}>Description</h4>
-                <p className={poppins.className}>
-                  Wireless Microphone with the new style, shockproof, clear
-                  voice reception that suitable for recording, online meeting,
-                  vlogging, and calling. Free casing with high-quality zipper.
-                </p>
+                <p
+                  dangerouslySetInnerHTML={{ __html: product.description }}
+                  className={poppins.className}
+                ></p>
               </div>
               <div className="add-card">
                 <div className="quantity">
