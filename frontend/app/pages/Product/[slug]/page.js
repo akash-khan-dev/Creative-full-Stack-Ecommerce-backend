@@ -1,9 +1,10 @@
-"use client";
-import SingleProduct from "@/app/components/section/SingleProduct.js/SingleProduct";
+import SingleProduct from "@/app/components/section/SingleProduct.js";
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 
-const Product = () => {
+const Product = ({ params }) => {
+  console.log(params.slug);
+
   return (
     <>
       <Container>
