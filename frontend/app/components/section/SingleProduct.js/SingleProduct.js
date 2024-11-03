@@ -17,6 +17,8 @@ import "swiper/css/thumbs";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import ShowReview from "./ShowReview";
+import AddReview from "./AddReview";
 const poppins = Poppins({
   weight: "500",
   subsets: ["latin"],
@@ -24,6 +26,7 @@ const poppins = Poppins({
 const SingleProduct = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   let [quality, setQuality] = useState(1);
+  let [active, setActive] = useState(1);
   return (
     <>
       <section className="product">
@@ -206,6 +209,42 @@ const SingleProduct = () => {
                   <button className={poppins.className}>Add to Cart</button>
                 </div>
               </div>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={6}>
+            <div className="show-review">
+              <div className="review-menu">
+                <ul>
+                  <li
+                    onClick={() => setActive(1)}
+                    className={poppins.className}
+                    style={
+                      active === 1 ? { color: "#F46B5B" } : { color: "#383838" }
+                    }
+                  >
+                    Review(200)
+                  </li>
+                  <li
+                    onClick={() => setActive(2)}
+                    style={
+                      active === 2 ? { color: "#F46B5B" } : { color: "#383838" }
+                    }
+                    className={poppins.className}
+                  >
+                    Description
+                  </li>
+                </ul>
+              </div>
+              <ShowReview />
+              <ShowReview />
+              <ShowReview />
+            </div>
+          </Col>
+          <Col lg={6}>
+            <div className="add-review mt-5">
+              <AddReview />
             </div>
           </Col>
         </Row>
