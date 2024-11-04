@@ -16,6 +16,7 @@ const deleteSubCategoryController = require("../../controller/deleteSubCategoryC
 const editSubCategoryController = require("../../controller/editSubCategoryController");
 const singleSubCategory = require("../../controller/singleSubCategory");
 const singleProductController = require("../../controller/singleProductController");
+const addCartController = require("../../controller/addCartController");
 
 router.post("/addcategory", secureAPI, verifyToken, addCategoryController);
 router.post("/approvecategory", approveCategoryController);
@@ -25,6 +26,8 @@ router.post("/addsubcategory", addSubCategoryController);
 router.post("/approvesubcategory", approveSubCategoryController);
 router.delete("/deletesubcategory/:id", deleteSubCategoryController);
 router.put("/editsubcategory/:id", editSubCategoryController);
+
+router.post("/addCart", addCartController);
 
 router.get("/viewcategory", viewCategoryController);
 router.get("/viewsubcategory", viewSubCategoryController);

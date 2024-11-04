@@ -1,4 +1,4 @@
-const mongoose = "mongoose";
+const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const cartModel = new Schema({
