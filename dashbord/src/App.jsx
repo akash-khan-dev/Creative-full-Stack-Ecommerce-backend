@@ -16,6 +16,7 @@ import ViewCategory from "./pages/ViewCategory/ViewCategory";
 import ViewSubCategory from "./pages/ViewSubCategory/ViewSubCategory";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import ViewProduct from "./pages/VewProduct/ViewProduct";
+import FlashSale from "./pages/FlashSale/FlashSale";
 
 function App() {
   const routes = createBrowserRouter(
@@ -36,6 +37,7 @@ function App() {
           <Route path="view-sub-category" element={<ViewSubCategory />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="view-product" element={<ViewProduct />} />
+          <Route path="add-flash" element={<FlashSale />} />
         </Route>
       </Route>
     )
