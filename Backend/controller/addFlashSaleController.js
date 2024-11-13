@@ -2,7 +2,7 @@ const flashSaleModel = require("../model/flashSaleModel");
 
 const addFlashSaleController = async (req, res) => {
   try {
-    const { time } = req.body;
+    const { time, productList } = req.body;
     const existing = await flashSaleModel.findOne();
     if (existing) {
       const flashSale = await flashSaleModel.findByIdAndUpdate(
@@ -14,7 +14,10 @@ const addFlashSaleController = async (req, res) => {
         .status(200)
         .json({ message: "Flash Product saved successfully", data: flashSale });
     } else {
-      const flashSale = new flashSaleModel({ time }).save();
+      const flashSale = new flashSaleModel({
+        time: time,
+        selectProduct: productList,
+      }).save();
       return res
         .status(200)
         .json({ message: "Flash Product saved successfully", data: flashSale });

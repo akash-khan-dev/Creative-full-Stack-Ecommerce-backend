@@ -6,6 +6,7 @@ const flashSaleModel = new Schema({
     type: String,
     required: true,
   },
+  selectProduct: [String],
 });
 
 const flashSale = model("FlashSale", flashSaleModel);
