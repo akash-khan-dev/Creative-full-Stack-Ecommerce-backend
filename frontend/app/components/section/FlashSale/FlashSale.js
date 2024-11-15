@@ -6,7 +6,7 @@ import { useTimer } from "@/app/utils/useTimer";
 import FlashProduct from "./FlashProduct";
 
 const FlashSale = () => {
-  const endDate = "2024-11-15 12:32";
+  const endDate = "2024-10-15 12:32";
   const timeLeft = useTimer(endDate);
 
   return (
@@ -19,9 +19,13 @@ const FlashSale = () => {
                 <h2>Flash Sale</h2>
                 <div>
                   <div className="timer d-flex gap-3">
-                    {timeLeft.days > 0 && (
+                    {timeLeft.days > 0 ? (
                       <p>
                         <span>{timeLeft.days}</span> day
+                      </p>
+                    ) : (
+                      <p>
+                        <span>{0}</span> day
                       </p>
                     )}
                     <p>

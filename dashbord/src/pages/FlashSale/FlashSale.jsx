@@ -24,17 +24,6 @@ const FlashSale = () => {
         time: date + " " + time,
         productList: selectProduct,
       });
-      toast.success(data.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
       setLoading(false);
     } catch (err) {
       toast.error(err.response.data.error, {
@@ -86,16 +75,8 @@ const FlashSale = () => {
           Time
         </label>
         <input onChange={(e) => setTime(e.target.value)} type="time" />
-        <Button
-          style={{ marginLeft: "20px" }}
-          onClick={handleSubmit}
-          type="primary"
-          loading={loading}
-          disabled={loading}
-          htmlType="submit"
-        >
-          Submit
-        </Button>
+
+        <h4>Add Product</h4>
         <Select
           mode="multiple"
           placeholder="Please select"
@@ -107,6 +88,16 @@ const FlashSale = () => {
           }}
           options={showProduct}
         />
+        <Button
+          style={{ marginTop: "20px" }}
+          onClick={handleSubmit}
+          type="primary"
+          loading={loading}
+          disabled={loading}
+          htmlType="submit"
+        >
+          Submit
+        </Button>
       </div>
     </>
   );

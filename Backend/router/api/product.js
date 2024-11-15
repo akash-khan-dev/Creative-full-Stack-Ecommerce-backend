@@ -19,6 +19,7 @@ const singleProductController = require("../../controller/singleProductControlle
 const addCartController = require("../../controller/addCartController");
 const showCartController = require("../../controller/showCart");
 const addFlashSaleController = require("../../controller/addFlashSaleController");
+const vewFlashSaleController = require("../../controller/vewFlashSaleController");
 
 router.post("/addcategory", secureAPI, verifyToken, addCategoryController);
 router.post("/approvecategory", approveCategoryController);
@@ -31,6 +32,7 @@ router.put("/editsubcategory/:id", editSubCategoryController);
 
 router.post("/addCart", addCartController);
 router.post("/addFlashSale", addFlashSaleController);
+router.get("/vewFlashSale", vewFlashSaleController);
 router.get("/showCart", showCartController);
 
 router.get("/viewcategory", viewCategoryController);
