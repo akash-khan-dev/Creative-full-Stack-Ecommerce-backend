@@ -3,6 +3,9 @@ const flashSaleModel = require("../model/flashSaleModel");
 const addFlashSaleController = async (req, res) => {
   try {
     const { time, productList } = req.body;
+    console.log(time);
+    console.log(productList);
+
     const existing = await flashSaleModel.findOne();
     if (existing) {
       const flashSale = await flashSaleModel.findByIdAndUpdate(

@@ -29,13 +29,19 @@ async function fetchFlashProducts() {
 export default async function Home() {
   const allProducts = await fetchAllProducts(); // Renamed the variable
   const flashProducts = await fetchFlashProducts(); // Renamed the variable
+  const endTime = flashProducts.data[0].time;
+
   return (
     <>
       <Container>
         <Banner />
         <Category />
         <Newarrival />
-        <FlashSale flashProducts={flashProducts} allProducts={allProducts} />
+        <FlashSale
+          endTime={endTime}
+          flashProducts={flashProducts}
+          allProducts={allProducts}
+        />
         <Brand />
         <Advice />
         <Featured />

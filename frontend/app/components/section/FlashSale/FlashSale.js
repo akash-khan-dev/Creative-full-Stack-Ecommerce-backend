@@ -4,22 +4,21 @@ import "./FlashSale.css";
 import { useTimer } from "@/app/utils/useTimer";
 import FlashProduct from "./FlashProduct";
 
-const FlashSale = ({ flashProducts, allProducts }) => {
-  const [endFlashTime, setEndFlashTime] = useState("");
+const FlashSale = ({ endTime, flashProducts, allProducts }) => {
   const [flashProduct, setFlashProduct] = useState([]);
-  const endDate = endFlashTime;
-  const timeLeft = useTimer(endDate);
+
+  const timeLeft = useTimer(endTime);
 
   useEffect(() => {
-    // ======for flash time
+    // ======for flash product map====
     flashProducts.data.map((product) => {
-      setEndFlashTime(product.time);
       const filteredData = allProducts.data.filter((item) =>
         product.selectProduct.includes(item._id)
       );
       setFlashProduct(filteredData);
     });
   }, []);
+
   return (
     <>
       <section className="py-10">
@@ -39,16 +38,34 @@ const FlashSale = ({ flashProducts, allProducts }) => {
                         <span>{0}</span> day
                       </p>
                     )}
-                    <p>
-                      <span>{timeLeft.hours}</span> hrs
-                    </p>
-                    <p>
-                      <span>{timeLeft.minutes}</span> min
-                    </p>
-                    <p>
-                      <span> {timeLeft.seconds}</span>
-                      sec
-                    </p>
+                    {timeLeft.hours > 0 ? (
+                      <p>
+                        <span>{timeLeft.hours}</span> hrs
+                      </p>
+                    ) : (
+                      <p>
+                        <span>{0}</span> hrs
+                      </p>
+                    )}
+                    {timeLeft.minutes > 0 ? (
+                      <p>
+                        <span>{timeLeft.minutes}</span> min
+                      </p>
+                    ) : (
+                      <p>
+                        <span>{0}</span> min
+                      </p>
+                    )}
+
+                    {timeLeft.seconds > 0 ? (
+                      <p>
+                        <span>{timeLeft.seconds}</span> sec
+                      </p>
+                    ) : (
+                      <p>
+                        <span>{0}</span> sec
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
