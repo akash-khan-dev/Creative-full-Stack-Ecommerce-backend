@@ -1,19 +1,30 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FlashSale.css";
-import { Col, Row } from "react-bootstrap";
 import { useTimer } from "@/app/utils/useTimer";
 import FlashProduct from "./FlashProduct";
 
-const FlashSale = () => {
-  const endDate = "2024-10-15 12:32";
+const FlashSale = ({ flashProducts, allProducts }) => {
+  const [endFlashTime, setEndFlashTime] = useState("");
+  const [flashProduct, setFlashProduct] = useState([]);
+  const endDate = endFlashTime;
   const timeLeft = useTimer(endDate);
 
+  useEffect(() => {
+    // ======for flash time
+    flashProducts.data.map((product) => {
+      setEndFlashTime(product.time);
+      const filteredData = allProducts.data.filter((item) =>
+        product.selectProduct.includes(item._id)
+      );
+      setFlashProduct(filteredData);
+    });
+  }, []);
   return (
     <>
       <section className="py-10">
-        <Row>
-          <Col>
+        <div className="row">
+          <div className="col-lg-12">
             <div className="flash-hear d-flex align-items-center justify-content-between">
               <div className=" d-flex align-items-center gap-5">
                 <h2>Flash Sale</h2>
@@ -45,10 +56,9 @@ const FlashSale = () => {
                 View All
               </button>
             </div>
-          </Col>
-        </Row>
-
-        <FlashProduct />
+          </div>
+        </div>
+        <FlashProduct flashProduct={flashProduct} />
       </section>
     </>
   );

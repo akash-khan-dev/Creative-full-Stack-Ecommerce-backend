@@ -1,4 +1,3 @@
-// "use client";
 import { Container } from "react-bootstrap";
 import Category from "./components/section/Category/Category";
 import Newarrival from "./components/section/Newarrival/Newarrival";
@@ -9,14 +8,34 @@ import Banner from "./components/section/Banner/Banner";
 import Featured from "./components/section/Featured/Featured";
 import TopRated from "./components/section/TopRated/TopRated";
 
-export default function Home() {
+async function fetchAllProducts() {
+  const res = await fetch("http://localhost:8000/api/v1/product/viewprodect");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+async function fetchFlashProducts() {
+  const res = await fetch("http://localhost:8000/api/v1/product/vewFlashSale");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+export default async function Home() {
+  const allProducts = await fetchAllProducts(); // Renamed the variable
+  const flashProducts = await fetchFlashProducts(); // Renamed the variable
   return (
     <>
       <Container>
         <Banner />
         <Category />
         <Newarrival />
-        <FlashSale />
+        <FlashSale flashProducts={flashProducts} allProducts={allProducts} />
         <Brand />
         <Advice />
         <Featured />

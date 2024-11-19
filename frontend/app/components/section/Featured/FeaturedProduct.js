@@ -1,8 +1,6 @@
-import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Heading from "../../common/Heading/Heading";
 import Image from "next/image";
-import product from "../../../Image/pro.jpg";
 import { Poppins } from "next/font/google";
 const poppins = Poppins({
   weight: "400",

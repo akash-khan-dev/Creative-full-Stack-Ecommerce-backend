@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import "./SingleProduct.css";
 import { Col, Row } from "react-bootstrap";
-import product from "../../../Image/pro.jpg";
 import Image from "next/image";
 import { FaHeart } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
