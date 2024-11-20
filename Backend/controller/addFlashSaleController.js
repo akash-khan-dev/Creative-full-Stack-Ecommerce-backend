@@ -3,14 +3,16 @@ const flashSaleModel = require("../model/flashSaleModel");
 const addFlashSaleController = async (req, res) => {
   try {
     const { time, productList } = req.body;
-    console.log(time);
-    console.log(productList);
-
     const existing = await flashSaleModel.findOne();
+    console.log();
+
     if (existing) {
+      const updatedProductList = Array.from(
+        new Set([...existing.selectProduct, ...productList])
+      );
       const flashSale = await flashSaleModel.findByIdAndUpdate(
         { _id: existing._id },
-        { time: time },
+        { time: time, selectProduct: updatedProductList },
         { set: true }
       );
       return res

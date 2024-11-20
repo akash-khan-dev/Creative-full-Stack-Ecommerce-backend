@@ -42,7 +42,6 @@ const FlashSale = () => {
   };
 
   //   ============for show all product
-
   const getAllProduct = async () => {
     try {
       const url = "http://localhost:8000/api/v1/product/viewprodect";

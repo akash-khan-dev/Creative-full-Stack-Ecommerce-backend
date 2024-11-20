@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./FlashSale.css";
 import { useTimer } from "@/app/utils/useTimer";
 import FlashProduct from "./FlashProduct";
+import { Col, Row } from "react-bootstrap";
 
 const FlashSale = ({ endTime, flashProducts, allProducts }) => {
   const [flashProduct, setFlashProduct] = useState([]);
@@ -22,8 +23,8 @@ const FlashSale = ({ endTime, flashProducts, allProducts }) => {
   return (
     <>
       <section className="py-10">
-        <div className="row">
-          <div className="col-lg-12">
+        <Row>
+          <Col lg={12}>
             <div className="flash-hear d-flex align-items-center justify-content-between">
               <div className=" d-flex align-items-center gap-5">
                 <h2>Flash Sale</h2>
@@ -73,8 +74,8 @@ const FlashSale = ({ endTime, flashProducts, allProducts }) => {
                 View All
               </button>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <FlashProduct flashProduct={flashProduct} />
       </section>
     </>
