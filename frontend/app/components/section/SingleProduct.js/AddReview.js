@@ -2,12 +2,15 @@ import { Poppins } from "next/font/google";
 import React from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { IoIosStar } from "react-icons/io";
+import ReactStars from "react-rating-stars-component";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
 const AddReview = () => {
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
   return (
     <>
       <div className="add-review-wrapper ">
@@ -44,13 +47,12 @@ const AddReview = () => {
           </div>
           <div className="send-rating">
             <h5>Rating</h5>
-            <div>
-              <IoIosStar color="#FFD687" />
-              <IoIosStar color="#FFD687" />
-              <IoIosStar color="#FFD687" />
-              <IoIosStar color="#FFD687" />
-              <IoIosStar color="#A7A7A7" />
-            </div>
+            <ReactStars
+              count={5}
+              onChange={ratingChanged}
+              size={24}
+              activeColor="#ffd700"
+            />
           </div>
           <Button className="mt-3" variant="danger">
             Submit{" "}

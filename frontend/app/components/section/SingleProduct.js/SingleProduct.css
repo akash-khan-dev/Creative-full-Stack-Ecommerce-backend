@@ -290,6 +290,9 @@
   gap: 8px;
   margin-top: 20px;
 }
+.send-rating h5 {
+  margin-top: 5px;
+}
 /* ===========swiper start=========== */
 .swiper {
   width: 100%;

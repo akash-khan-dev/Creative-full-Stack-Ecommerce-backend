@@ -5,8 +5,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import hero from "../../../Image/hero image.png";
-import heroTwo from "../../../Image/01.png";
+import hero from "../../../Image/banner-update.jpg";
+import heroTwo from "../../../Image/laptop-3.jpeg";
 import Link from "next/link";
 
 const Banner = () => {
@@ -32,7 +32,7 @@ const Banner = () => {
               {" "}
               <div className="banner-img">
                 <Link href={"/"}>
-                  <Image src={hero} width={858} height={500} alt="hero" />
+                  <Image src={hero} width={858} height={600} alt="hero" />
                 </Link>
               </div>
             </SwiperSlide>
@@ -40,7 +40,7 @@ const Banner = () => {
               {" "}
               <div className="banner-img">
                 <Link href={"/"}>
-                  <Image src={hero} width={858} height={500} alt="hero" />
+                  <Image src={hero} width={858} height={600} alt="hero" />
                 </Link>
               </div>
             </SwiperSlide>
@@ -48,7 +48,7 @@ const Banner = () => {
               {" "}
               <div className="banner-img">
                 <Link href={"/"}>
-                  <Image src={hero} width={858} height={500} alt="hero" />
+                  <Image src={hero} width={858} height={600} alt="hero" />
                 </Link>
               </div>
             </SwiperSlide>
