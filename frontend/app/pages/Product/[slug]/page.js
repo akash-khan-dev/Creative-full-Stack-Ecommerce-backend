@@ -15,14 +15,26 @@ async function getData(slug) {
   return res.json();
 }
 
+async function getReviewData(productId) {
+  const category = await fetch(
+    `http://localhost:8000/api/v1/product/viewReview/${productId}`
+  );
+
+  if (!category.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return category.json();
+}
 const Product = async ({ params }) => {
   const slug = params.slug;
   const product = await getData(slug);
+  const productReview = await getReviewData(product.data._id);
 
   return (
     <>
       <Container>
-        <SingleProduct data={product} />
+        <SingleProduct data={product} productReview={productReview} />
       </Container>
     </>
   );

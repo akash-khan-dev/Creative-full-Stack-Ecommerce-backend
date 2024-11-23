@@ -24,7 +24,7 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-const SingleProduct = ({ data }) => {
+const SingleProduct = ({ data, productReview }) => {
   const product = data.data;
   const productId = product._id;
 
@@ -218,9 +218,7 @@ const SingleProduct = ({ data }) => {
                   </li>
                 </ul>
               </div>
-              <ShowReview />
-              <ShowReview />
-              <ShowReview />
+              <ShowReview productReview={productReview} />
             </div>
           </Col>
           <Col lg={6}>

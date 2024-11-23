@@ -21,6 +21,7 @@ const showCartController = require("../../controller/showCart");
 const addFlashSaleController = require("../../controller/addFlashSaleController");
 const vewFlashSaleController = require("../../controller/vewFlashSaleController");
 const addReviewController = require("../../controller/addReviewController");
+const viewReviewController = require("../../controller/viewReviewController");
 
 router.post("/addcategory", secureAPI, verifyToken, addCategoryController);
 router.post("/approvecategory", approveCategoryController);
@@ -44,4 +45,5 @@ router.get("/viewprodect", ViewProductController);
 router.get("/singleProduct/:slug", singleProductController);
 
 router.post("/addReview", addReviewController);
+router.get("/viewReview/:id", viewReviewController);
 module.exports = router;

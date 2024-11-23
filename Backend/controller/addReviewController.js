@@ -3,6 +3,7 @@ const ReviewModel = require("../model/ReviewModel");
 const addReviewController = async (req, res, next) => {
   try {
     const { name, email, review, ratting, productId } = req.body;
+
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
