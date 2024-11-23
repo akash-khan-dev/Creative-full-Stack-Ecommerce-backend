@@ -10,7 +10,7 @@ const ReviewModel = new Schema({
     type: String,
     required: true,
   },
-  text: {
+  comment: {
     type: String,
     required: true,
   },
@@ -30,6 +30,6 @@ const ReviewModel = new Schema({
   },
 });
 
-const ProductReview = model("FlashSale", ReviewModel);
+const ProductReview = model("ReviewModel", ReviewModel);
 
 module.exports = ProductReview;

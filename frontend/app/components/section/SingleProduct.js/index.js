@@ -26,9 +26,10 @@ const poppins = Poppins({
 
 const SingleProduct = ({ data }) => {
   const product = data.data;
+  const productId = product._id;
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  let [quality, setQuality] = useState(1);
+  let [quantity, setQuantity] = useState(1);
   let [active, setActive] = useState(1);
   return (
     <>
@@ -177,12 +178,12 @@ const SingleProduct = ({ data }) => {
                 <div className="quantity">
                   <span className={poppins.className}>quantity</span>
                   <button
-                    onClick={() => setQuality(quality > 1 ? quality - 1 : 1)}
+                    onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
                   >
                     -
                   </button>
-                  <small>{quality}</small>
-                  <button onClick={() => setQuality(quality + 1)}>+</button>
+                  <small>{quantity}</small>
+                  <button onClick={() => setQuantity(quantity + 1)}>+</button>
                 </div>
                 <div className="add-btn">
                   <button className={poppins.className}>Chat</button>
@@ -224,7 +225,7 @@ const SingleProduct = ({ data }) => {
           </Col>
           <Col lg={6}>
             <div className="add-review mt-5">
-              <AddReview />
+              <AddReview productId={productId} />
             </div>
           </Col>
         </Row>

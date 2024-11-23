@@ -20,6 +20,7 @@ const addCartController = require("../../controller/addCartController");
 const showCartController = require("../../controller/showCart");
 const addFlashSaleController = require("../../controller/addFlashSaleController");
 const vewFlashSaleController = require("../../controller/vewFlashSaleController");
+const addReviewController = require("../../controller/addReviewController");
 
 router.post("/addcategory", secureAPI, verifyToken, addCategoryController);
 router.post("/approvecategory", approveCategoryController);
@@ -42,4 +43,5 @@ router.post("/addprodect", addProductController);
 router.get("/viewprodect", ViewProductController);
 router.get("/singleProduct/:slug", singleProductController);
 
+router.post("/addReview", addReviewController);
 module.exports = router;

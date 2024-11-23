@@ -9,7 +9,7 @@ const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
-const AddReview = () => {
+const AddReview = ({ productId }) => {
   const [ratting, setRaging] = useState(null);
   const ratingChanged = (newRating) => {
     setRaging(newRating);
@@ -21,8 +21,15 @@ const AddReview = () => {
       review: "",
     },
     validationSchema: ReviewValidation,
-    onSubmit: (values) => {
-      console.log({ ...values, ratting });
+    onSubmit: async (values) => {
+      await fetch("http://localhost:8000/api/v1/product/addReview", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...values, ratting, productId }),
+      }).then((response) => response.json().then((data) => console.log(data)));
     },
   });
   return (
