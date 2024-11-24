@@ -361,3 +361,7 @@
   padding: 20px 100px;
 }
 /* swiper end */
+
+.review-wrapper {
+  border-bottom: 1px solid #eee;
+}

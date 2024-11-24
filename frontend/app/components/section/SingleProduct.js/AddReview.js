@@ -5,12 +5,14 @@ import Form from "react-bootstrap/Form";
 import ReactStars from "react-rating-stars-component";
 import { useFormik } from "formik";
 import { ReviewValidation } from "@/app/utils/formValidation";
+import BeatLoader from "react-spinners/BeatLoader";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
 const AddReview = ({ productId }) => {
   const [ratting, setRaging] = useState(null);
+  const [loading, setLoading] = useState(false);
   const ratingChanged = (newRating) => {
     setRaging(newRating);
   };
@@ -22,14 +24,21 @@ const AddReview = ({ productId }) => {
     },
     validationSchema: ReviewValidation,
     onSubmit: async (values) => {
-      await fetch("http://localhost:8000/api/v1/product/addReview", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...values, ratting, productId }),
-      }).then((response) => response.json().then((data) => console.log(data)));
+      try {
+        setLoading(true);
+        await fetch("http://localhost:8000/api/v1/product/addReview", {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...values, ratting, productId }),
+        });
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+        console.log(e.message);
+      }
     },
   });
   return (
@@ -106,9 +115,15 @@ const AddReview = ({ productId }) => {
                 activeColor="#ffd700"
               />
             </div>
-            <Button type="submit" className="mt-3" variant="danger">
-              Submit
-            </Button>
+            {loading ? (
+              <Button type="submit" className="mt-3" variant="danger">
+                <BeatLoader />
+              </Button>
+            ) : (
+              <Button type="submit" className="mt-3" variant="danger">
+                Submit
+              </Button>
+            )}
           </form>
         </div>
       </div>

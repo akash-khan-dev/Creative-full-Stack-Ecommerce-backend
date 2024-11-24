@@ -1,8 +1,8 @@
+import { timeAgo } from "@/app/utils/ReviewTime";
 import { Poppins } from "next/font/google";
 import React from "react";
 
 import ReactStars from "react-rating-stars-component";
-
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
@@ -13,7 +13,7 @@ const ShowReview = ({ productReview }) => {
     <>
       {productReview.data &&
         productReview.data.map((review) => (
-          <div key={review._id} className="mt-4">
+          <div key={review._id} className="mt-4 review-wrapper">
             <div className="reviewer-name">
               <h3 className={poppins.className}>{review.name}</h3>
             </div>
@@ -30,7 +30,9 @@ const ShowReview = ({ productReview }) => {
                 </div>
               </div>
               <div className="date">
-                <span className={poppins.className}>1 Month Ago</span>
+                <span className={poppins.className}>
+                  {timeAgo(review.createdAt)}
+                </span>
               </div>
             </div>
             <div className="review-description">
