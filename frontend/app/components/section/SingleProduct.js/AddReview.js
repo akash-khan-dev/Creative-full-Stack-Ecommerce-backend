@@ -43,12 +43,12 @@ const AddReview = ({ productId }) => {
   });
   return (
     <>
-      <div className="add-review-wrapper ">
-        <div className="add-review-header ">
-          <h4 className={poppins.className}>Add Your Review</h4>
+      <div className="add-review-wrapper">
+        <div className="add-review-header">
+          <h4 className={poppins.className}>Customer Reviews</h4>
           <p className={poppins.className}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor.{" "}
+            Our users mean everything to us. Here’s what they have to say about
+            their experiences—your feedback inspires us to continue improving
           </p>
         </div>
         <div className="input-form">

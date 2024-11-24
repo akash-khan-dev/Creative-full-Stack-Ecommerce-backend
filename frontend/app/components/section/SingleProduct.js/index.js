@@ -8,6 +8,7 @@ import { IoIosStar } from "react-icons/io";
 import { Poppins } from "next/font/google";
 import { Delivery } from "@/SVG/Delivery";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ReactStars from "react-rating-stars-component";
 
 // Import Swiper styles
 import "swiper/css";
@@ -31,6 +32,18 @@ const SingleProduct = ({ data, productReview }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   let [quantity, setQuantity] = useState(1);
   let [active, setActive] = useState(1);
+
+  // ==========this for average rating calculation======
+  const totalRatings = productReview.data.reduce(
+    (sum, review) => sum + (review.ratting || 0),
+    0
+  );
+  const avgRating =
+    productReview.data.length > 0
+      ? totalRatings / productReview.data.length
+      : 0;
+  const roundRating = Math.round(avgRating);
+
   return (
     <>
       <section className="product">
@@ -94,17 +107,24 @@ const SingleProduct = ({ data, productReview }) => {
                 <div className="rate-and-wish">
                   <div className="rate">
                     <div className="star">
-                      <span className={poppins.className}>5.0</span>
+                      <span className={poppins.className}>{roundRating}.0</span>
                       <div>
-                        <IoIosStar size={20} color="#FFD687" />
-                        <IoIosStar size={20} color="#FFD687" />
-                        <IoIosStar size={20} color="#FFD687" />
-                        <IoIosStar size={20} color="#FFD687" />
-                        <IoIosStar size={20} color="#FFD687" />
+                        <ReactStars
+                          count={5}
+                          value={roundRating}
+                          size={24}
+                          activeColor="#ffd700"
+                        />
                       </div>
                     </div>
                     <div className="review">
-                      <span className={poppins.className}>Review (12)</span>
+                      <span className={poppins.className}>
+                        Review (
+                        {productReview.data.length > 0
+                          ? productReview.data.length
+                          : 0}
+                        )
+                      </span>
                     </div>
                     <span className="line">|</span>
                     <div className="sold">
@@ -205,7 +225,7 @@ const SingleProduct = ({ data, productReview }) => {
                       active === 1 ? { color: "#F46B5B" } : { color: "#383838" }
                     }
                   >
-                    Review(200)
+                    Review({productReview.data.length})
                   </li>
                   <li
                     onClick={() => setActive(2)}

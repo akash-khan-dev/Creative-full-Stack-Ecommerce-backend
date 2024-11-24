@@ -1,8 +1,7 @@
 .product {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
-
 .product-image {
   width: 634px;
   height: 500px;
@@ -264,9 +263,9 @@
   font-size: 15px;
 }
 .review-description p {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 27px;
-  color: #383838;
+  color: #515151;
   margin-top: 10px;
 }
 .add-review-wrapper {
@@ -278,7 +277,7 @@
   color: #383838;
 }
 .add-review-header p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 27px;
   color: #a7a7a7;
 }
@@ -363,5 +362,10 @@
 /* swiper end */
 
 .review-wrapper {
+  width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.review-item {
   border-bottom: 1px solid #eee;
 }

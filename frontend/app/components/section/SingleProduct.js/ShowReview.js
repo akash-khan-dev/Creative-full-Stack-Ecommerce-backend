@@ -10,10 +10,10 @@ const poppins = Poppins({
 
 const ShowReview = ({ productReview }) => {
   return (
-    <>
+    <div className="review-wrapper">
       {productReview.data &&
         productReview.data.map((review) => (
-          <div key={review._id} className="mt-4 review-wrapper">
+          <div key={review._id} className="mt-4 review-item">
             <div className="reviewer-name">
               <h3 className={poppins.className}>{review.name}</h3>
             </div>
@@ -40,7 +40,7 @@ const ShowReview = ({ productReview }) => {
             </div>
           </div>
         ))}
-    </>
+    </div>
   );
 };
 
