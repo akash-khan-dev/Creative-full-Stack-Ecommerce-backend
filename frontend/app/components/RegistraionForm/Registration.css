@@ -1,0 +1,16 @@
+#registration {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.form-wrapper {
+  padding: 30px 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.form-heder {
+  border-bottom: 1px solid #ccc;
+}
+.form-box label {
+  margin-top: 15px;
+}
