@@ -1,0 +1,143 @@
+.card-product-header label {
+  font-size: 17px;
+  color: #a7a7a7;
+  margin-left: 15px;
+}
+
+.card-product-header {
+  border-bottom: 1px solid #f46b5b;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+.card-product-header input {
+  width: 20px;
+  height: 20px;
+}
+.card-product-item {
+  border-bottom: 1px solid #f46b5b;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+.card-product-item {
+  display: flex;
+  align-items: center;
+}
+.card-check-box-area {
+  width: 8%;
+}
+.card-check-box-area input {
+  width: 20px;
+  height: 20px;
+}
+.card-product-img {
+  width: 27%;
+}
+.card-product-info {
+  width: 60%;
+}
+.card-product-info h3 {
+  font-size: 22px;
+  color: #393d46;
+}
+.card-product-info h4 {
+  font-size: 22px;
+  color: #f46b5b;
+  margin: 15px 0px;
+}
+.card-product-cancel {
+  text-align: end;
+  width: 5%;
+}
+.quantity button {
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.quantity button:last-child {
+  background-color: #f46b5b;
+  color: #fff;
+}
+.quantity small {
+  font-size: 16px;
+  color: #f46b5b;
+  margin: 0px 15px;
+}
+.card-product-cancel svg {
+  color: #f46b5b;
+  font-size: 20px;
+  cursor: pointer;
+}
+.coupon-area {
+  padding: 15px 30px;
+  border: 1px solid #f46b5b;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  margin-top: 45px;
+}
+.coupon-area input {
+  border: 1px solid #8c8c8c;
+  padding: 8px 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+}
+.coupon-area button {
+  padding: 7px 20px;
+  background-color: #f46b5b;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-top: 20px;
+  color: white;
+  transition: all linear 0.3s;
+  font-weight: 500;
+  font-size: 18px;
+}
+.summary-box {
+  padding: 20px 15px;
+  border: 1px solid #f46b5b;
+  border-radius: 10px;
+}
+.mount {
+  justify-content: space-between;
+}
+.mount h6 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #a7a7a7;
+}
+.mount h5 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #f46b5b;
+}
+.check-out-btn button {
+  padding: 10px 20px;
+  background-color: #f46b5b;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: white;
+  transition: all linear 0.3s;
+  font-weight: 500;
+  font-size: 18px;
+  border: 1px solid #f46b5b;
+}
+
+.check-out-btn button:hover {
+  background-color: transparent;
+  border: 1px solid #f46b5b;
+  color: #f46b5b;
+}
+.continue-shopping button {
+  border: none;
+  margin-top: 20px;
+  color: #f46b5b;
+  font-weight: 500;
+  font-size: 18px;
+  background-color: transparent !important;
+  font-weight: 500;
+}
