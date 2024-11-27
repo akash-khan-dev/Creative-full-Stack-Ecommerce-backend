@@ -1,0 +1,25 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+}
+.breadcrumb a {
+  font-size: 17px;
+  line-height: 27px;
+  color: #a7a7a7;
+  text-decoration: none;
+  margin-top: -5px;
+}
+.breadcrumb p {
+  font-size: 17px;
+  line-height: 27px;
+  color: #a7a7a7;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.breadcrumb h2 {
+  font-size: 17px;
+  line-height: 27px;
+  color: #f46b5b;
+  margin-top: 3px;
+}
