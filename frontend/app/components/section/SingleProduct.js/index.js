@@ -20,6 +20,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ShowReview from "./ShowReview";
 import AddReview from "./AddReview";
+import Button from "../../common/Button/Button";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
@@ -207,7 +208,7 @@ const SingleProduct = ({ data, productReview }) => {
                 </div>
                 <div className="add-btn">
                   <button className={poppins.className}>Chat</button>
-                  <button className={poppins.className}>Add to Cart</button>
+                  <Button product={product} />
                 </div>
               </div>
             </div>
