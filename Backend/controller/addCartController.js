@@ -9,7 +9,24 @@ const addCartController = async (req, res, next) => {
       userId: userId,
     });
     if (existingCart) {
-      if (req.query.type === "plus") {
+      if (req.query.type) {
+        if (req.query.type === "plus") {
+          await Cart.findOneAndUpdate(
+            { _id: existingCart._id },
+            { quantity: existingCart.quantity + 1 },
+            { new: true }
+          );
+          return res.status(200).json({ message: "product add successful" });
+        } else {
+          if (existingCart.quantity > 1) {
+            await Cart.findOneAndUpdate(
+              { _id: existingCart._id },
+              { quantity: existingCart.quantity - 1 },
+              { new: true }
+            );
+            return res.status(200).json({ message: "product add successful" });
+          }
+        }
         await Cart.findOneAndUpdate(
           { _id: existingCart._id },
           { quantity: existingCart.quantity + 1 },
@@ -17,21 +34,13 @@ const addCartController = async (req, res, next) => {
         );
         return res.status(200).json({ message: "product add successful" });
       } else {
-        if (existingCart.quantity > 1) {
-          await Cart.findOneAndUpdate(
-            { _id: existingCart._id },
-            { quantity: existingCart.quantity - 1 },
-            { new: true }
-          );
-          return res.status(200).json({ message: "product add successful" });
-        }
+        await Cart.findOneAndUpdate(
+          { _id: existingCart._id },
+          { quantity: existingCart.quantity + 1 },
+          { new: true }
+        );
+        return res.status(200).json({ message: "product add successful" });
       }
-      await Cart.findOneAndUpdate(
-        { _id: existingCart._id },
-        { quantity: existingCart.quantity + 1 },
-        { new: true }
-      );
-      return res.status(200).json({ message: "product add successful" });
     } else {
       const cart = new Cart({
         productId: productId,
