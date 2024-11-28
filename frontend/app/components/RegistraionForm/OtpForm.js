@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./Registration.css";
@@ -11,11 +11,22 @@ import "./Registration.css";
 
 const OtpForm = () => {
   const [loading, setLoading] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(240);
   const [otp, setOtp] = useState(new Array(5).fill(""));
-  console.log(otp);
-  const convertNumber = parseInt(otp.join(""));
-  console.log(typeof convertNumber);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer); // Cleanup on unmount
+  }, []);
   const handleChange = (value, index) => {
     if (isNaN(value)) return;
 
@@ -35,8 +46,19 @@ const OtpForm = () => {
     }
   };
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(
+      remainingSeconds
+    ).padStart(2, "0")}`;
+  };
   const handleSubmit = () => {
-    alert(`Entered OTP: ${otp.join("")}`);
+    if (timeLeft > 0) {
+      alert(`Entered OTP: ${otp.join("")}`);
+    } else {
+      alert("Time is up! Please request a new OTP.");
+    }
   };
   return (
     <Col lg={5} className="mx-auto">
@@ -71,6 +93,7 @@ const OtpForm = () => {
               </Button>
             ) : (
               <Button
+                onClick={handleSubmit}
                 type="submit"
                 className="my-3 w-100 py-2"
                 variant="danger"
@@ -78,7 +101,7 @@ const OtpForm = () => {
                 Create Account
               </Button>
             )}
-
+            <div className="timer">Time Left: {formatTime(timeLeft)}</div>
             <p>
               Already have an account? <Link href={"#"}>Sign in</Link>
             </p>
