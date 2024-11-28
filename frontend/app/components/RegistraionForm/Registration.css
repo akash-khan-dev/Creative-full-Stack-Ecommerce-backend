@@ -14,3 +14,7 @@
 .form-box label {
   margin-top: 15px;
 }
+.form-box span {
+  color: brown;
+  display: block;
+}

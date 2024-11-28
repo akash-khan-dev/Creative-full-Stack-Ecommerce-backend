@@ -10,12 +10,12 @@ const authValidation = {
     .oneOf([Yup.ref("password"), null], "Confirm Password Must be matches")
     .required("Confirm Password is required"),
 };
-export const SignUpValidation = {
+export const SignUpValidation = Yup.object({
   name: authValidation.name,
   email: authValidation.email,
   password: authValidation.password,
   confirmPassword: authValidation.confirmPassword,
-};
+});
 export const ReviewValidation = Yup.object({
   name: authValidation.name,
   email: authValidation.email,

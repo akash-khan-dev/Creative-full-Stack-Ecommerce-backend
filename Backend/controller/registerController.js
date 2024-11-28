@@ -3,6 +3,7 @@ const sendEmail = require("../helpers/sendMail");
 const { customOtpGen } = require("otp-gen-agent");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const sendEmailFrontend = require("../helpers/sendMailForFrontend");
 
 const registerController = async (req, res, next) => {
   try {
@@ -26,7 +27,7 @@ const registerController = async (req, res, next) => {
     const OTP = await customOtpGen({ length: 5 });
 
     // password has and data store database
-
+    const token = jwt.sign({ email: email }, "shhhhh");
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
         const userData = new User({
@@ -35,18 +36,42 @@ const registerController = async (req, res, next) => {
           password: hash,
           role: role,
           otp: OTP,
+          token: token,
         });
         userData.save();
+
+        // condition for frontend users
+        if (role === "User") {
+          setTimeout(async () => {
+            await User.findOneAndUpdate(
+              { email },
+              { $unset: { otp: "" } },
+              { new: true }
+            );
+          }, 240000);
+          // send email for OTP
+          sendEmailFrontend(email, OTP, "emailVerification");
+          return res.status(200).json({
+            status: "Registrations successfully Check Email",
+            data: {
+              name: userData.name,
+              email: userData.email,
+              role: userData.role,
+              otp: userData.otp,
+              token: userData.token,
+            },
+          });
+        }
+        // other dashboard users
         // send email for OTP
-        jwt.sign({ email: email }, "shhhhh", function (err, token) {
-          sendEmail(email, "emailVerification", token, "verified your email");
-        });
+        sendEmail(email, "emailVerification", token, "verified your email");
         return res.status(200).json({
           status: "Registrations successfully Check Email",
           data: {
             name: userData.name,
             email: userData.email,
             role: userData.role,
+            token: userData.token,
           },
         });
       });
