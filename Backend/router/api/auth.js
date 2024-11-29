@@ -7,6 +7,7 @@ const forgotPasswordController = require("../../controller/forgotPasswordControl
 const secureAPI = require("../../middleware/secureAPI");
 const newPasswords = require("../../controller/newPassword");
 const otpMatchController = require("../../controller/otpMatch");
+const ResetOtpController = require("../../controller/ResetOtpController");
 
 router.post("/register", registerController);
 router.post("/linkVerified", linkController);
@@ -15,5 +16,6 @@ router.post("/forgotpass", forgotPasswordController);
 router.post("/newpass", newPasswords);
 router.post("/login", loginController);
 router.post("/otpMatch", otpMatchController);
+router.post("/resetOtp", ResetOtpController);
 
 module.exports = router;

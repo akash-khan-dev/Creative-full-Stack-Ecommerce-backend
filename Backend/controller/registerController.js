@@ -41,6 +41,7 @@ const registerController = async (req, res, next) => {
         }).save();
 
         // condition for frontend users
+
         if (role === "User") {
           setTimeout(async () => {
             await User.findOneAndUpdate(

@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import { SignUpValidation } from "@/app/utils/formValidation";
 import { BeatLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Registration.css";
 import { useRouter } from "next/navigation";
 
@@ -77,11 +79,21 @@ const OtpForm = ({ userValue }) => {
         router.push("/pages/login");
       }
     } catch (e) {
-      console.log(e.message);
+      toast.error(e.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
     <Col lg={5} className="mx-auto">
+      <ToastContainer />
       <div className="form-wrapper">
         <div className="form-heder text-center pb-3">
           <h3>Create your account</h3>
