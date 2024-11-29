@@ -30,7 +30,7 @@ const OtpForm = ({ userValue }) => {
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup on unmount
-  }, []);
+  }, [timeLeft]);
   const handleChange = (value, index) => {
     if (isNaN(value)) return;
 
@@ -57,6 +57,8 @@ const OtpForm = ({ userValue }) => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
+
+  // for otp match function
   const handleOtpMatch = async () => {
     try {
       const userOTP = otp.join("");
@@ -75,7 +77,18 @@ const OtpForm = ({ userValue }) => {
         }
       );
       const data = await SendData.json();
-      if (data.data.emailVerified == true) {
+
+      toast.error(data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      if (data.status == "ok") {
         router.push("/pages/login");
       }
     } catch (e) {
@@ -90,6 +103,48 @@ const OtpForm = ({ userValue }) => {
         theme: "light",
       });
     }
+  };
+
+  //   for reset otp function
+  const handleResetOtp = async () => {
+    try {
+      const SendData = await fetch(
+        "http://localhost:8000/api/v1/user/resetOtp",
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userValue.email,
+          }),
+        }
+      );
+      const data = await SendData.json();
+      toast.success(data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (e) {
+      toast.error(e.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    setTimeLeft(240);
   };
   return (
     <Col lg={5} className="mx-auto">
@@ -119,13 +174,6 @@ const OtpForm = ({ userValue }) => {
           </div>
 
           <div className="text-center">
-            <Button
-              onClick={handleOtpMatch}
-              className="my-3 w-100 py-2"
-              variant="danger"
-            >
-              Create Account
-            </Button>
             {timeLeft > 0 ? (
               <div>
                 <div className="timer">Time Left: {formatTime(timeLeft)}</div>
@@ -140,14 +188,17 @@ const OtpForm = ({ userValue }) => {
             ) : (
               <div>
                 <div className="timer">Your Time is finish</div>
-                <Button className="my-3 w-100 py-2" variant="danger">
+                <Button
+                  onClick={handleResetOtp}
+                  className="my-3 w-100 py-2"
+                  variant="danger"
+                >
                   Reset OTP
                 </Button>
               </div>
             )}
-
             <p>
-              Already have an account? <Link href={"#"}>Sign in</Link>
+              Already have an account? <Link href={""}>Sign in</Link>
             </p>
           </div>
         </form>
