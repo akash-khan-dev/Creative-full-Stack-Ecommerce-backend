@@ -42,7 +42,6 @@ const RegistrationForm = () => {
           }
         );
         const data = await SendData.json();
-        console.log(data);
 
         if (data.error) {
           setLoading(false);
@@ -57,7 +56,7 @@ const RegistrationForm = () => {
             theme: "light",
           });
         }
-        setUserValue(values);
+        setUserValue(data.data);
         setShowOtpForm(true);
         setLoading(false);
       } catch (e) {
