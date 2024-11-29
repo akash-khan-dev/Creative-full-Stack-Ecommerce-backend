@@ -5,8 +5,16 @@ import React, { useState } from "react";
 import "./login.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { FaRegEyeSlash, FaEye } from "react-icons/fa";
-
+import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
+import { SignInValidation } from "@/app/utils/formValidation";
+import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { getUerInfo } from "@/app/StateFeature/userSlice";
 const LoginForm = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const formik = useFormik({
@@ -14,14 +22,66 @@ const LoginForm = () => {
       email: "",
       password: "",
     },
-
+    validationSchema: SignInValidation,
     onSubmit: async (values) => {
-      console.log(values);
+      try {
+        setLoading(true);
+        const SendData = await fetch(
+          "http://localhost:8000/api/v1/user/login",
+          {
+            method: "POST",
+            headers: {
+              accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: values.email,
+              password: values.password,
+            }),
+          }
+        );
+
+        const data = await SendData.json();
+        if (data.status === "success") {
+          dispatch(getUerInfo(data.data));
+          localStorage.setItem("userInfo", JSON.stringify(data.data));
+          router.push("/");
+          setLoading(false);
+        }
+
+        if (data.status === "error") {
+          setLoading(false);
+          return toast.error(data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+        toast.error(data.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     },
   });
   return (
     <section id="login">
       <Container>
+        <ToastContainer />
         <Row>
           <Col lg={5} className="mx-auto">
             <div className="form-wrapper">
@@ -85,7 +145,7 @@ const LoginForm = () => {
                       className="my-3 w-100 "
                       variant="danger"
                     >
-                      Create Account
+                      Login
                     </Button>
                   )}
 

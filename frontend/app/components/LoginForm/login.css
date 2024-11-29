@@ -18,6 +18,9 @@
   color: brown;
   display: block;
 }
+.password-input {
+  position: relative;
+}
 .show-password-btn {
   position: absolute;
   top: 50%;

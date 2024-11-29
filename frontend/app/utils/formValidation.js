@@ -16,6 +16,10 @@ export const SignUpValidation = Yup.object({
   password: authValidation.password,
   confirmPassword: authValidation.confirmPassword,
 });
+export const SignInValidation = Yup.object({
+  email: authValidation.email,
+  password: authValidation.password,
+});
 export const ReviewValidation = Yup.object({
   name: authValidation.name,
   email: authValidation.email,

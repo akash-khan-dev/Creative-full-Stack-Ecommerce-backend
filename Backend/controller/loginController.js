@@ -40,6 +40,7 @@ const loginController = async (req, res, next) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        verify: user.emailVerified,
       },
     });
   });
