@@ -198,7 +198,8 @@ const OtpForm = ({ userValue }) => {
               </div>
             )}
             <p>
-              Already have an account? <Link href={""}>Sign in</Link>
+              Already have an account?{" "}
+              <Link href={"/pages/login"}>Sign in</Link>
             </p>
           </div>
         </form>

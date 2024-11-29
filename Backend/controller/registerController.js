@@ -27,14 +27,11 @@ const registerController = async (req, res, next) => {
     const OTP = await customOtpGen({ length: 5 });
 
     // password has and data store database
-    const token = jwt.sign({ email: email }, "shhhhh");
-
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
         const userData = await new User({
           name: name,
           email: email,
-          token: token,
           password: hash,
           role: role,
           otp: OTP,
@@ -60,12 +57,12 @@ const registerController = async (req, res, next) => {
               email: userData.email,
               role: userData.role,
               otp: userData.otp,
-              token: userData.token,
             },
           });
         }
         // other dashboard users
         // send email for OTP
+        const token = jwt.sign({ email: email }, "shhhhh");
         sendEmail(email, "emailVerification", token, "verified your email");
         return res.status(200).json({
           status: "Registrations successfully Check Email",
