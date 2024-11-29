@@ -8,10 +8,10 @@ import { useFormik } from "formik";
 import { SignUpValidation } from "@/app/utils/formValidation";
 import { BeatLoader } from "react-spinners";
 import "./Registration.css";
+import { useRouter } from "next/navigation";
 
 const OtpForm = ({ userValue }) => {
-  //   console.log("userValue", userValue.email);
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [timeLeft, setTimeLeft] = useState(240);
   const [otp, setOtp] = useState(new Array(5).fill(""));
@@ -55,11 +55,29 @@ const OtpForm = ({ userValue }) => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
-  const handleSubmit = () => {
-    if (timeLeft > 0) {
-      alert(`Entered OTP: ${otp.join("")}`);
-    } else {
-      alert("Time is up! Please request a new OTP.");
+  const handleOtpMatch = async () => {
+    try {
+      const userOTP = otp.join("");
+      const SendData = await fetch(
+        "http://localhost:8000/api/v1/user/otpMatch",
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            otp: userOTP,
+            email: userValue.email,
+          }),
+        }
+      );
+      const data = await SendData.json();
+      if (data.data.emailVerified == true) {
+        router.push("/pages/login");
+      }
+    } catch (e) {
+      console.log(e.message);
     }
   };
   return (
@@ -71,7 +89,7 @@ const OtpForm = ({ userValue }) => {
         <form action="" className="form-box">
           <div className="otp-container">
             <h2>Enter OTP</h2>
-            <p>Please enter the 5-digit code sent to your email.</p>
+            <h6>To Confirm The Email Enter 5 Digit OTP Here</h6>
             <div className="otp-input">
               {otp.map((data, index) => (
                 <input
@@ -89,24 +107,31 @@ const OtpForm = ({ userValue }) => {
           </div>
 
           <div className="text-center">
-            {loading ? (
-              <Button type="submit" className="my-3 w-100 " variant="danger">
-                <BeatLoader />
-              </Button>
-            ) : (
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                className="my-3 w-100 py-2"
-                variant="danger"
-              >
-                Create Account
-              </Button>
-            )}
+            <Button
+              onClick={handleOtpMatch}
+              className="my-3 w-100 py-2"
+              variant="danger"
+            >
+              Create Account
+            </Button>
             {timeLeft > 0 ? (
-              <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+              <div>
+                <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+                <Button
+                  onClick={handleOtpMatch}
+                  className="my-3 w-100 py-2"
+                  variant="danger"
+                >
+                  Create Account
+                </Button>
+              </div>
             ) : (
-              "new otp"
+              <div>
+                <div className="timer">Your Time is finish</div>
+                <Button className="my-3 w-100 py-2" variant="danger">
+                  Reset OTP
+                </Button>
+              </div>
             )}
 
             <p>

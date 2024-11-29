@@ -56,3 +56,6 @@
 .otp-box:focus {
   border-color: #f46b5b;
 }
+.timer {
+  margin-top: 5px;
+}
