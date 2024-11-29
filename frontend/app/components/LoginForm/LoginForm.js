@@ -4,18 +4,20 @@ import Link from "next/link";
 import React, { useState } from "react";
 import "./login.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { FaRegEyeSlash, FaEye } from "react-icons/fa";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
 
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      console.log(values);
+    },
   });
   return (
     <section id="login">
@@ -46,14 +48,22 @@ const LoginForm = () => {
                     formik.errors.email}
                 </span>
                 <Form.Label htmlFor="password">Password</Form.Label>
-                <Form.Control
-                  name="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                />
+                <div className="password-input">
+                  <Form.Control
+                    name="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    type={!showPass ? "password" : "text"}
+                    id="password"
+                    placeholder="Password"
+                  />
+                  <div
+                    className="show-password-btn"
+                    onClick={() => setShowPass(!showPass)}
+                  >
+                    {!showPass ? <FaRegEyeSlash /> : <FaEye />}
+                  </div>
+                </div>
                 <span className="review-error">
                   {formik.touched.password &&
                     formik.errors.password &&

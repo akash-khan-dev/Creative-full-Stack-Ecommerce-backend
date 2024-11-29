@@ -10,8 +10,11 @@ import { BeatLoader } from "react-spinners";
 import OtpForm from "./OtpForm";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaRegEyeSlash, FaEye } from "react-icons/fa";
+
 const RegistrationForm = () => {
   const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const [userValue, setUserValue] = useState({});
   const [showOtpForm, setShowOtpForm] = useState(false);
   const formik = useFormik({
@@ -115,14 +118,22 @@ const RegistrationForm = () => {
                         formik.errors.email}
                     </span>
                     <Form.Label htmlFor="password">Password</Form.Label>
-                    <Form.Control
-                      name="password"
-                      onChange={formik.handleChange}
-                      value={formik.values.password}
-                      type="password"
-                      id="password"
-                      placeholder="Password"
-                    />
+                    <div className="password-input">
+                      <Form.Control
+                        name="password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        type={!showPass ? "password" : "text"}
+                        id="password"
+                        placeholder="Password"
+                      />
+                      <div
+                        className="show-password-btn"
+                        onClick={() => setShowPass(!showPass)}
+                      >
+                        {!showPass ? <FaRegEyeSlash /> : <FaEye />}
+                      </div>
+                    </div>
                     <span className="review-error">
                       {formik.touched.password &&
                         formik.errors.password &&

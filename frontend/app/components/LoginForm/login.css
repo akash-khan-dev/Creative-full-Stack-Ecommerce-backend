@@ -18,3 +18,14 @@
   color: brown;
   display: block;
 }
+.show-password-btn {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.show-password-btn svg {
+  width: 18px;
+  height: 18px;
+}
