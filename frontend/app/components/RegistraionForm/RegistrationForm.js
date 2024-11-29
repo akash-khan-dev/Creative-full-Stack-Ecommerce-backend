@@ -8,8 +8,11 @@ import { useFormik } from "formik";
 import { SignUpValidation } from "@/app/utils/formValidation";
 import { BeatLoader } from "react-spinners";
 import OtpForm from "./OtpForm";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const RegistrationForm = () => {
   const [loading, setLoading] = useState(false);
+  const [userValue, setUserValue] = useState({});
   const [showOtpForm, setShowOtpForm] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -20,25 +23,41 @@ const RegistrationForm = () => {
     },
     validationSchema: SignUpValidation,
     onSubmit: async (values) => {
-      console.log(values);
       try {
         setLoading(true);
-        const data = await fetch("http://localhost:8000/api/v1/user/register", {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: values.name,
-            email: values.email,
-            password: values.password,
-            role: "User",
-          }),
-        });
-        console.log("data", data);
-        setLoading(false);
+        const SendData = await fetch(
+          "http://localhost:8000/api/v1/user/register",
+          {
+            method: "POST",
+            headers: {
+              accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: values.name,
+              email: values.email,
+              password: values.password,
+              role: "User",
+            }),
+          }
+        );
+        const data = await SendData.json();
+        if (data.error) {
+          setLoading(false);
+          return toast.error(data.error, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        setUserValue(values);
         setShowOtpForm(true);
+        setLoading(false);
       } catch (e) {
         setLoading(false);
         console.log(e.message);
@@ -49,9 +68,10 @@ const RegistrationForm = () => {
     <>
       <section id="registration">
         <Container>
+          <ToastContainer />
           {showOtpForm ? (
             <Row>
-              <OtpForm />
+              <OtpForm userValue={userValue} />
             </Row>
           ) : (
             <Row>

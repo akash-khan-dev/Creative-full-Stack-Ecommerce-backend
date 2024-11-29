@@ -9,7 +9,9 @@ import { SignUpValidation } from "@/app/utils/formValidation";
 import { BeatLoader } from "react-spinners";
 import "./Registration.css";
 
-const OtpForm = () => {
+const OtpForm = ({ userValue }) => {
+  //   console.log("userValue", userValue.email);
+
   const [loading, setLoading] = useState(false);
   const [timeLeft, setTimeLeft] = useState(240);
   const [otp, setOtp] = useState(new Array(5).fill(""));
@@ -101,7 +103,12 @@ const OtpForm = () => {
                 Create Account
               </Button>
             )}
-            <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+            {timeLeft > 0 ? (
+              <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+            ) : (
+              "new otp"
+            )}
+
             <p>
               Already have an account? <Link href={"#"}>Sign in</Link>
             </p>

@@ -28,17 +28,17 @@ const registerController = async (req, res, next) => {
 
     // password has and data store database
     const token = jwt.sign({ email: email }, "shhhhh");
+
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
         const userData = new User({
           name: name,
           email: email,
+          token: token,
           password: hash,
           role: role,
           otp: OTP,
-          token: token,
-        });
-        userData.save();
+        }).save();
 
         // condition for frontend users
         if (role === "User") {
