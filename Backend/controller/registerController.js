@@ -31,7 +31,7 @@ const registerController = async (req, res, next) => {
 
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
-        const userData = new User({
+        const userData = await new User({
           name: name,
           email: email,
           token: token,
@@ -51,6 +51,7 @@ const registerController = async (req, res, next) => {
           }, 240000);
           // send email for OTP
           sendEmailFrontend(email, OTP, "emailVerification");
+
           return res.status(200).json({
             status: "Registrations successfully Check Email",
             data: {

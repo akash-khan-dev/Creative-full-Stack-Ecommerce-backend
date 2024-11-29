@@ -42,6 +42,8 @@ const RegistrationForm = () => {
           }
         );
         const data = await SendData.json();
+        console.log(data);
+
         if (data.error) {
           setLoading(false);
           return toast.error(data.error, {
