@@ -1,16 +1,35 @@
-import React from "react";
+"use client";
 import "./CardProduct.css";
-import cardImg from "../../Image/card.png";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import { ImCross } from "react-icons/im";
 import { Col } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
 const CardProduct = () => {
+  const [cardProduct, setCardProduct] = useState(null);
+  const userInfo = useSelector((user) => user.LoginInfo.userInfo);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/product/showCart")
+      .then((res) => res.json())
+      .then((data) => {
+        let tempArray = [];
+
+        data.data.map((item) => {
+          if (item.userId == userInfo.id) {
+            tempArray.push(item);
+          }
+        });
+
+        setCardProduct(tempArray);
+      });
+  }, []);
   return (
     <>
       <Col lg={8}>
@@ -20,34 +39,47 @@ const CardProduct = () => {
             <label htmlFor="check">Select All</label>
           </div>
           <div className="card-product-item-wrapper">
-            <div className="card-product-item">
-              <div className="card-check-box-area">
-                <input id="check" type="checkbox" />
-              </div>
-              <div className="card-product-img">
-                <Image src={cardImg} width={150} height={150} />
-              </div>
-              <div className="card-product-info">
-                <h3 className={poppins.className}>USB Speaker Portable</h3>
-                <h4 className={poppins.className}>$100.99</h4>
-                <div className="quantity">
-                  <button
-                  //   onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
-                  >
-                    -
-                  </button>
-                  <small className={poppins.className}> 1</small>
-                  <button
-                  // onClick={() => setQuantity(quantity + 1)}
-                  >
-                    +
-                  </button>
+            {cardProduct?.map((product) => (
+              <div className="card-product-item">
+                <div className="card-check-box-area">
+                  <input id="check" type="checkbox" />
+                </div>
+                <div className="card-product-img">
+                  <Image
+                    src={`http://localhost:8000/${product?.productId?.image[0]}`}
+                    width={150}
+                    height={150}
+                  />
+                </div>
+                <div className="card-product-info">
+                  <h3 className={poppins.className}>
+                    {product.productId.name}
+                  </h3>
+                  <h4 className={poppins.className}>
+                    ${product.productId.regularPrice}
+                  </h4>
+                  <div className="quantity">
+                    <button
+                    //   onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+                    >
+                      -
+                    </button>
+                    <small className={poppins.className}>
+                      {" "}
+                      {product?.productId?.quantity}
+                    </small>
+                    <button
+                    // onClick={() => setQuantity(quantity + 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className="card-product-cancel">
+                  <ImCross />
                 </div>
               </div>
-              <div className="card-product-cancel">
-                <ImCross />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </Col>

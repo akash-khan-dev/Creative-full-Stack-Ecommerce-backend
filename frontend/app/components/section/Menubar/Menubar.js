@@ -12,11 +12,23 @@ import { TiMessage } from "react-icons/ti";
 import { CiSearch } from "react-icons/ci";
 import { Poppins } from "next/font/google";
 import Topbar from "./Topbar";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
 const Menubar = () => {
+  const router = useRouter();
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/product/showCart")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
+
   return (
     <>
       <Topbar />
@@ -57,12 +69,16 @@ const Menubar = () => {
               </div>
             </div>
             <div className="notification">
-              <div className="shop-icon">
+              <div
+                onClick={() => router.push("/pages/Card")}
+                className="shop-icon"
+              >
                 <IoBagOutline size={25} />
                 <div className="notification-count">
-                  <p>99</p>
+                  <p>{data?.data?.length}</p>
                 </div>
               </div>
+
               <div className="message-icon">
                 <TiMessage size={30} />
               </div>
