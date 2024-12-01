@@ -14,18 +14,28 @@ import { Poppins } from "next/font/google";
 import Topbar from "./Topbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
 const Menubar = () => {
   const router = useRouter();
-  const [data, setData] = useState(null);
+  const userInfo = useSelector((user) => user.LoginInfo.userInfo);
+  const [cardProduct, setCardProduct] = useState(null);
   useEffect(() => {
     fetch("http://localhost:8000/api/v1/product/showCart")
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        let tempArray = [];
+
+        data.data.map((item) => {
+          if (item.userId == userInfo.id) {
+            tempArray.push(item);
+          }
+        });
+
+        setCardProduct(tempArray);
       });
   }, []);
 
@@ -74,9 +84,12 @@ const Menubar = () => {
                 className="shop-icon"
               >
                 <IoBagOutline size={25} />
-                <div className="notification-count">
-                  <p>{data?.data?.length}</p>
-                </div>
+
+                {cardProduct?.length > 0 ? (
+                  <div className="notification-count">
+                    <p>{cardProduct?.length}</p>
+                  </div>
+                ) : null}
               </div>
 
               <div className="message-icon">
