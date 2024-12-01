@@ -29,7 +29,26 @@ const CardProduct = () => {
 
         setCardProduct(tempArray);
       });
-  }, []);
+  }, [cardProduct]);
+  // for product quantity plus
+
+  const handleUpdateQuantity = async (id, requirement) => {
+    const SendData = await fetch(
+      `http://localhost:8000/api/v1/product/addCart?type=${requirement}`,
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: id,
+          userId: userInfo.id,
+        }),
+      }
+    );
+    const data = await SendData.json();
+  };
   return (
     <>
       <Col lg={8}>
@@ -60,16 +79,20 @@ const CardProduct = () => {
                   </h4>
                   <div className="quantity">
                     <button
-                    //   onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+                      onClick={() =>
+                        handleUpdateQuantity(product.productId._id, "mines")
+                      }
                     >
                       -
                     </button>
                     <small className={poppins.className}>
                       {" "}
-                      {product?.productId?.quantity}
+                      {product?.quantity}
                     </small>
                     <button
-                    // onClick={() => setQuantity(quantity + 1)}
+                      onClick={() =>
+                        handleUpdateQuantity(product.productId._id, "plus")
+                      }
                     >
                       +
                     </button>
