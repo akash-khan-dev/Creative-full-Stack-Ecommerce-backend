@@ -37,8 +37,15 @@ const Menubar = () => {
 
         setCardProduct(tempArray);
       });
-  }, []);
+  }, [cardProduct]);
 
+  const handleNavigateCard = () => {
+    if (userInfo) {
+      return router.push("pages/Card");
+    } else {
+      return router.push("pages/login");
+    }
+  };
   return (
     <>
       <Topbar />
@@ -79,10 +86,7 @@ const Menubar = () => {
               </div>
             </div>
             <div className="notification">
-              <div
-                onClick={() => router.push("/pages/Card")}
-                className="shop-icon"
-              >
+              <div onClick={handleNavigateCard} className="shop-icon">
                 <IoBagOutline size={25} />
 
                 {cardProduct?.length > 0 ? (

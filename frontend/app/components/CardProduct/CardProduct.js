@@ -47,7 +47,20 @@ const CardProduct = () => {
         }),
       }
     );
-    const data = await SendData.json();
+  };
+
+  // for card product delete
+  const deleteCardProduct = async (id) => {
+    const SendData = await fetch(
+      `http://localhost:8000/api/v1/product/cardProductDelete/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
   return (
     <>
@@ -99,7 +112,7 @@ const CardProduct = () => {
                   </div>
                 </div>
                 <div className="card-product-cancel">
-                  <ImCross />
+                  <ImCross onClick={() => deleteCardProduct(product._id)} />
                 </div>
               </div>
             ))}
