@@ -16,7 +16,7 @@ const CardProduct = () => {
   const userInfo = useSelector((user) => user.LoginInfo.userInfo);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/product/showCart")
+    const getCardData = fetch("http://localhost:8000/api/v1/product/showCart")
       .then((res) => res.json())
       .then((data) => {
         let tempArray = [];
@@ -26,27 +26,23 @@ const CardProduct = () => {
             tempArray.push(item);
           }
         });
-
         setCardProduct(tempArray);
       });
   }, [cardProduct]);
   // for product quantity plus
 
   const handleUpdateQuantity = async (id, requirement) => {
-    const SendData = await fetch(
-      `http://localhost:8000/api/v1/product/addCart?type=${requirement}`,
-      {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: id,
-          userId: userInfo.id,
-        }),
-      }
-    );
+    fetch(`http://localhost:8000/api/v1/product/addCart?type=${requirement}`, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: id,
+        userId: userInfo.id,
+      }),
+    });
   };
 
   // for card product delete
@@ -89,6 +85,9 @@ const CardProduct = () => {
                   </h3>
                   <h4 className={poppins.className}>
                     ${product.productId.regularPrice}
+                  </h4>
+                  <h4 className={poppins.className}>
+                    Total: ${product.productId.regularPrice * product?.quantity}
                   </h4>
                   <div className="quantity">
                     <button
