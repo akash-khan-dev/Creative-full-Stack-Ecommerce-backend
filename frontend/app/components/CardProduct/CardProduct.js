@@ -14,6 +14,7 @@ const poppins = Poppins({
 const CardProduct = () => {
   const [cardProduct, setCardProduct] = useState(null);
   const userInfo = useSelector((user) => user.LoginInfo.userInfo);
+  const [totalPrice, setTotalPrice] = useState(null);
 
   useEffect(() => {
     const getCardData = fetch("http://localhost:8000/api/v1/product/showCart")
@@ -27,6 +28,11 @@ const CardProduct = () => {
           }
         });
         setCardProduct(tempArray);
+        const total = data.data.reduce((accum, product) => {
+          return accum + product.productId.regularPrice * product.quantity;
+        }, 0);
+
+        setTotalPrice(total);
       });
   }, [cardProduct]);
   // for product quantity plus
@@ -58,6 +64,7 @@ const CardProduct = () => {
       }
     );
   };
+
   return (
     <>
       <Col lg={8}>
@@ -133,7 +140,7 @@ const CardProduct = () => {
             <h4>Summary</h4>
             <div className="mount d-flex mt-3">
               <h6 className={poppins.className}>total</h6>
-              <h5 className={poppins.className}>$202.00</h5>
+              <h5 className={poppins.className}>${totalPrice}</h5>
             </div>
             <div className="check-out-btn">
               <button className={poppins.className}>Checkout</button>

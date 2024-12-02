@@ -2,6 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import Heading from "../../common/Heading/Heading";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
+import Button from "../../common/Button/Button";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
@@ -67,7 +68,7 @@ const FeaturedProduct = async () => {
                       </div>
                     </div>
                     <div className="add-card-btn">
-                      <button className={poppins.className}>Add to Cart</button>
+                      <Button product={product} />
                     </div>
                   </div>
                 </div>
