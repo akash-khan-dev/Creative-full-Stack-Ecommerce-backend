@@ -1,3 +1,6 @@
+#footer {
+  background-color: #f9f4f2;
+}
 .news-latter {
   background-color: #f46b5b;
 }
@@ -43,4 +46,38 @@
   background-color: transparent;
   font-weight: 700;
   color: #f46b5b;
+}
+
+.footer-content p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+
+.footer-content ul {
+  padding-left: 0px;
+}
+.footer-content ul li {
+  list-style: none;
+  margin-top: 5px;
+}
+.footer-content ul li a {
+  text-decoration: none;
+  color: #212529;
+}
+.social-wrapper {
+  display: flex;
+  gap: 10px;
+}
+.footer-social-icon {
+  padding: 4px 6px;
+  background-color: #f46b5b;
+  border-radius: 5px;
+}
+.copyRight {
+  border-top: 1px solid gray;
+  padding-top: 15px;
+}
+.copyRight p {
+  margin-bottom: 0px;
+  font-size: 14px;
 }
